@@ -43,7 +43,7 @@ export default function IndexPage() {
             <img src={index2} alt="Slide 2" />
             <div className="content">
               <div className="author">UNIVERSITY OF PERADENIYA</div>
-              <div className="title">DON`&apos;`T EAT CHINESE FOOD</div>
+              <div className="title">DON'T EAT CHINESE FOOD</div>
               <div className="topic">MEDICARE</div>
               <div className="des">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut
@@ -83,7 +83,7 @@ export default function IndexPage() {
             <img src={index4} alt="Slide 4" />
             <div className="content">
               <div className="author">UNIVERSITY OF PERADENIYA</div>
-              <div className="title">DON`&apos;`T GET LIQUOR</div>
+              <div className="title">DON'T GET LIQUOR</div>
               <div className="topic">MEDICARE</div>
               <div className="des">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut
@@ -111,7 +111,7 @@ export default function IndexPage() {
           <div className="item">
             <img src={index2} alt="Thumbnail 2" />
             <div className="content">
-              <div className="title">DON`&apos;`T EAT CHINESE FOOD</div>
+              <div className="title">DON'T EAT CHINESE FOOD</div>
               <div className="description">MEDIGUARD</div>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function IndexPage() {
           <div className="item">
             <img src={index4} alt="Thumbnail 4" />
             <div className="content">
-              <div className="title">DON`&apos;`T GET LIQUOR</div>
+              <div className="title">DON'T GET LIQUOR</div>
               <div className="description">MEDIGUARD</div>
             </div>
           </div>

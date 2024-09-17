@@ -79,7 +79,7 @@ export default function NavBar() {
                   Services
                 </a>
               </li>
-              <li className="p-4">
+              {/* <li className="p-4">
                 <a
                   href="/tests2"
                   className="text-white"
@@ -87,7 +87,7 @@ export default function NavBar() {
                 >
                   Tests
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         )}
@@ -106,9 +106,9 @@ export default function NavBar() {
           <a href="/services" className="text-white hover:underline">
             Services
           </a>
-          <a href="/tests2" className="text-white hover:underline">
+          {/* <a href="/tests2" className="text-white hover:underline">
             Tests
-          </a>
+          </a> */}
         </div>
 
         {/* Register and Login */}
