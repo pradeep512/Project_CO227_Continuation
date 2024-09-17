@@ -12,14 +12,14 @@ import AdminPatients from "../components/AdminComponents/AdminPatients";
 import AdminMainLayout from "../components/layouts/AdminMainLayout";
 import DoctorMainLayout from "../components/layouts/DoctorMainLayout";
 import ServicesPage from "../pages/ServicePgae";
-import PatientDashboard from "../components/PatientHomePageComponents/PatientDashboard";
 import PatientMainLayout from "../components/layouts/PatientMainLayout";
-import PatientMedicalInfo from "../components/PatientHomePageComponents/PatientMedicalInfo";
 import AdminDoctors from "../components/AdminComponents/AdminDoctors";
 import AdminPatientInfoChange from "../pages/Admin/AdminPatientInfoChange"; // Import the new component
 import DoctorDashboard from "../components/DoctorComponents/DoctorDashboard";
 import GetDoctorsPatients from "../components/DoctorComponents/DoctorFunctionlities/GetDoctorsPatients";
 import MedicalInfo from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/MedicalInfo";
+import PatientDashboard from "../components/PatientComponents/PatientDashborad";
+import PatientMedicalInfo from "../components/PatientComponents/PatientFunctionlities/PatientDashboardDetails/PatientMedicalInfo";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -42,7 +42,6 @@ const AppRoutes = createBrowserRouter([
         path: "doctors", // Doctors list page
         element: <AdminDoctors />,
       },
-      // You can add more admin routes here as needed
     ],
   },
   {
@@ -54,10 +53,9 @@ const AppRoutes = createBrowserRouter([
         element: <PatientDashboard />,
       },
       {
-        path: "patients", // Patient medical info page
+        path: "medicalinfo", // Patient medical info page
         element: <PatientMedicalInfo />,
       },
-      // Add more patient routes here if necessary
     ],
   },
   {
@@ -81,7 +79,6 @@ const AppRoutes = createBrowserRouter([
 
   { path: "/", element: <HomePage /> },
   { path: "/login", element: <LoginPage /> },
-
   { path: "/about", element: <AboutPage /> },
   { path: "/doctors", element: <FetchAllDoctors /> },
   { path: "/contact", element: <ContactUsPage /> },

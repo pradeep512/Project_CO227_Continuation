@@ -6,8 +6,8 @@ const PatientMedicalInfo = () => {
   return (
     <div>
       <PatientSymptomDataById />
-      <PatientClinicalDataById/>
-      <PatientExaminationDataById/>
+      <PatientClinicalDataById />
+      <PatientExaminationDataById />
     </div>
   );
 };

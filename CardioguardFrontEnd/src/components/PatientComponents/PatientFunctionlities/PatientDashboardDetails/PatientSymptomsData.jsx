@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
-import axiosClient from "../../../axios-client"; // Updated path for axiosClient
+import { useState, useEffect, useCallback } from "react";
 import { FaStethoscope } from "react-icons/fa"; // Use the stethoscope icon
+import axiosClient from "../../../../../axios-client";
+import useStateContext from "../../../../contexts/useStateContext";
 
 const PatientSymptomDataById = () => {
   const [symptoms, setSymptoms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useStateContext();
 
-  // Hardcoded patient ID
-  const patientId = 3;
+  const patientId = user.patientId;
 
-  const fetchSymptomsData = async () => {
+  const fetchSymptomsData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -34,12 +35,12 @@ const PatientSymptomDataById = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [patientId]); // Include patientId as a dependency
 
   useEffect(() => {
     // Automatically fetch data on component load
     fetchSymptomsData();
-  }, []); // Empty dependency array to only run once when the component mounts
+  }, [fetchSymptomsData]); // Add fetchSymptomsData to the dependency array
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 w-full mb-2">

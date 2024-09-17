@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../../axios-client";
+import useStateContext from "../../../contexts/useStateContext";
 
 const GetDoctorsPatients = () => {
-  const { doctor_id } = useParams(); // Get doctor_id from the URL
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { user } = useStateContext();
 
   useEffect(() => {
     const fetchPatients = async () => {
-      const doctor_id = 1; // Hardcoded doctor_id, replace with dynamic value if needed
+      const doctor_id = user.doctorId;
       try {
         setLoading(true);
         const response = await axiosClient.get(
@@ -31,7 +32,7 @@ const GetDoctorsPatients = () => {
     };
 
     fetchPatients();
-  }, [doctor_id]);
+  }, [user.doctorId]);
 
   const handleRowClick = (patientId) => {
     navigate(`/doctor/patients/${patientId}`);

@@ -21,8 +21,6 @@ const ClinicalDataById = () => {
         `/doctors/patients/${patientId}/clinical-data`
       );
 
-      console.log(clinicalDataResponse.data); // To check the structure
-
       if (clinicalDataResponse.data && clinicalDataResponse.data.length > 0) {
         // Sort the clinical data by clinicalDate in descending order
         const sortedData = clinicalDataResponse.data.sort(

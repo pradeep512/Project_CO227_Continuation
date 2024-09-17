@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axiosClient from "../../../axios-client"; // Ensure the correct path for axiosClient
+import { useState, useEffect, useCallback } from "react";
 import {
   FaHeartbeat,
   FaDiagnoses,
@@ -8,16 +7,18 @@ import {
   FaTint,
   FaChartLine,
 } from "react-icons/fa"; // Import relevant icons
+import axiosClient from "../../../../../axios-client";
+import useStateContext from "../../../../contexts/useStateContext";
 
 const PatientClinicalDataById = () => {
   const [clinicalData, setClinicalData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useStateContext();
 
-  // Hardcoded patient ID
-  const patientId = 3;
+  const patientId = user.patientId;
 
-  const fetchClinicalData = async () => {
+  const fetchClinicalData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -27,8 +28,6 @@ const PatientClinicalDataById = () => {
       const clinicalDataResponse = await axiosClient.get(
         `/doctors/patients/${patientId}/clinical-data`
       );
-
-      console.log(clinicalDataResponse.data); // To check the structure
 
       if (clinicalDataResponse.data && clinicalDataResponse.data.length > 0) {
         // Since it's an array, grab the first element
@@ -44,12 +43,12 @@ const PatientClinicalDataById = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [patientId]); // Include patientId as a dependency
 
   useEffect(() => {
     // Automatically fetch data on component load
     fetchClinicalData();
-  }, []); // Empty dependency array to only run once when the component mounts
+  }, [fetchClinicalData]); // Add fetchClinicalData to the dependency array
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 w-full  mb-2">

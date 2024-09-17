@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axiosClient from "../../../axios-client"; // Ensure the correct path for axiosClient
+import { useState, useEffect, useCallback } from "react";
 import {
   FaHeartbeat,
   FaLungs,
@@ -8,16 +7,18 @@ import {
   FaStethoscope,
   FaArrowUp,
 } from "react-icons/fa"; // Import relevant icons
+import axiosClient from "../../../../../axios-client";
+import useStateContext from "../../../../contexts/useStateContext";
 
 const PatientExaminationDataById = () => {
   const [clinicalData, setClinicalData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useStateContext();
 
-  // Hardcoded patient ID
-  const patientId = 3;
+  const patientId = user.patientId;
 
-  const fetchClinicalData = async () => {
+  const fetchClinicalData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -41,15 +42,15 @@ const PatientExaminationDataById = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [patientId]); // Include patientId as a dependency
 
   useEffect(() => {
     // Automatically fetch data on component load
     fetchClinicalData();
-  }, []); // Empty dependency array to only run once when the component mounts
+  }, [fetchClinicalData]); // Add fetchClinicalData to the dependency array
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4 w-full  mb-2">
+    <div className="bg-white shadow-lg rounded-lg p-4 w-full mb-2">
       <h1 className="text-2xl font-bold text-left mb-6">Examination Data</h1>
 
       {/* Error message */}
