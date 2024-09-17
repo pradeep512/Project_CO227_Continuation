@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function NavBar() {
   // State
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Event handlers
   const handleMenuToggle = () => {
@@ -11,6 +12,10 @@ export default function NavBar() {
 
   const handleMenuClose = () => {
     setMenuOpen(false); // Close menu
+  };
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen); // Toggle dropdown state
   };
 
   return (
@@ -41,7 +46,7 @@ export default function NavBar() {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="sm:hidden absolute top-16 left-0 w-full bg-gray-900">
+          <div className="sm:hidden absolute top-16 left-0 w-full bg-gray-900 z-50">
             <ul className="flex flex-col items-center">
               <li className="p-4">
                 <a
@@ -79,14 +84,60 @@ export default function NavBar() {
                   Services
                 </a>
               </li>
-              <li className="p-4">
-                <a
-                  href="/tests2"
-                  className="text-white"
-                  onClick={handleMenuClose}
+              <li className="p-4 relative">
+                <button
+                  onClick={handleDropdownToggle}
+                  className="text-white focus:outline-none flex items-center"
                 >
-                  Tests
-                </a>
+                  Users
+                  <svg
+                    className="w-4 h-4 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg z-50">
+                    <ul className="py-2">
+                      <li className="px-4 py-2">
+                        <a
+                          href="/admin"
+                          className="text-white hover:bg-gray-700 block"
+                          onClick={handleMenuClose}
+                        >
+                          Admin
+                        </a>
+                      </li>
+                      <li className="px-4 py-2">
+                        <a
+                          href="/patient"
+                          className="text-white hover:bg-gray-700 block"
+                          onClick={handleMenuClose}
+                        >
+                          Patient
+                        </a>
+                      </li>
+                      <li className="px-4 py-2">
+                        <a
+                          href="/doctor"
+                          className="text-white hover:bg-gray-700 block"
+                          onClick={handleMenuClose}
+                        >
+                          Doctor
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </li>
             </ul>
           </div>
@@ -106,9 +157,49 @@ export default function NavBar() {
           <a href="/services" className="text-white hover:underline">
             Services
           </a>
-          <a href="/tests2" className="text-white hover:underline">
-            Tests
-          </a>
+          <div className="relative">
+            <button
+              onClick={handleDropdownToggle}
+              className="text-white hover:underline focus:outline-none flex items-center"
+            >
+              Users
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {dropdownOpen && (
+              <div className="absolute left-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg z-50">
+                <ul className="py-2">
+                  <li className="px-4 py-2">
+                    <a href="/admin" className="text-white hover:bg-gray-700 block">
+                      Admin
+                    </a>
+                  </li>
+                  <li className="px-4 py-2">
+                    <a href="/patient" className="text-white hover:bg-gray-700 block">
+                      Patient
+                    </a>
+                  </li>
+                  <li className="px-4 py-2">
+                    <a href="/doctor" className="text-white hover:bg-gray-700 block">
+                      Doctor
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Register and Login */}
