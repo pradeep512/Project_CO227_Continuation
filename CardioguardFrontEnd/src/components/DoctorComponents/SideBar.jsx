@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { FiGrid, FiUsers } from "react-icons/fi";
+import { FiGrid, FiHeart, FiUsers } from "react-icons/fi";
 
 const Sidebar = () => {
   const location = useLocation(); // Get the current path
@@ -37,6 +37,20 @@ const Sidebar = () => {
         >
           <FiUsers className="mr-3" />
           Patients
+        </NavLink>
+
+        <NavLink
+          to="/doctor/predictions"
+          className={() =>
+            `flex items-center py-3 px-4 text-gray-600 hover:bg-gray-100 rounded-lg ${
+              location.pathname.startsWith("/departments")
+                ? "bg-[#A9F0E4] text-[#2C3746]"
+                : ""
+            }`
+          }
+        >
+          <FiHeart className="mr-3" />
+          Predictions
         </NavLink>
       </nav>
     </div>
