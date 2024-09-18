@@ -11,6 +11,7 @@ import PatientExaminationDataById from "../components/GetDoctorExaminationsById"
 import PatientDataById from "../components/GetPatientById";
 import PatientSymptomDataById from "../components/GetPatientSymptomsById";
 import DoctorPatients from "../components/GetRegisteredPatientsForDoctor";
+import MachineLearningData from "../components/MachineLerningDataForm";
 
 import PatientClinicalDataById from "../components/PatientClinicalDataById";
 
@@ -21,6 +22,7 @@ import RegisterPatientToDoctor from "../components/RegisterPatientsForDoctor";
 export default function Tests() {
   return (
     <div>
+      <MachineLearningData />
       <DeleteDoctor />
       <FetchAllDoctors />
       <DeletePatient />
@@ -34,7 +36,6 @@ export default function Tests() {
       <PatientSymptomDataById />
       <DoctorPatients />
       <RegisterPatientToDoctor />
-      
     </div>
   );
 }

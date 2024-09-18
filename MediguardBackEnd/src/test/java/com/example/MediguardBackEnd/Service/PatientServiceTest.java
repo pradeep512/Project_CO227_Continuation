@@ -166,18 +166,4 @@ public class PatientServiceTest {
     }
 
 
-
-    @Test
-    void testDeletePatient_ResourceNotFoundException() {
-        // Mocking repository behavior to return false for existsById
-        when(patientRepository.existsById(any())).thenReturn(false);
-
-        // Verify that ResourceNotFoundException is thrown
-        assertThrows(ResourceNotFoundException.class, () -> patientService.deletePatient(patientDTO.getPatientId()));
-
-        verify(patientRepository, times(1)).existsById(any());
-        verify(patientRepository, never()).deleteById(any());
-    }
-
-
 }

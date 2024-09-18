@@ -22,7 +22,11 @@ const ExaminationDataById = () => {
       );
 
       if (clinicalDataResponse.data) {
-        setClinicalData(clinicalDataResponse.data);
+        // Sort the data by date in descending order (newest first)
+        const sortedData = clinicalDataResponse.data.sort(
+          (a, b) => new Date(b.examinationDate) - new Date(a.examinationDate)
+        );
+        setClinicalData(sortedData);
       } else {
         setError("No clinical data found.");
       }
