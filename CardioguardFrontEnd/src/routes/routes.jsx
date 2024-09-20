@@ -20,6 +20,7 @@ import GetDoctorsPatients from "../components/DoctorComponents/DoctorFunctionlit
 import MedicalInfo from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/MedicalInfo";
 import PatientDashboard from "../components/PatientComponents/PatientDashborad";
 import PatientMedicalInfo from "../components/PatientComponents/PatientFunctionlities/PatientDashboardDetails/PatientMedicalInfo";
+import Prediction from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/Prediction";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "/doctor/patients/:patientId",
         element: <MedicalInfo />,
+      },
+      {
+        path: "/doctor/predictions",
+        element: <Prediction />,
       },
     ],
   },

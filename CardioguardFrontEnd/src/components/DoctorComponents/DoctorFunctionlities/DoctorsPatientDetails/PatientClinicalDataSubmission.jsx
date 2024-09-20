@@ -257,7 +257,7 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
 
     try {      
       await axiosClient.post(
-        `/doctors/add/clinical-data/patient/${patientId}`,
+        `/doctors/patients/${patientId}/clinical-data`,
         formData
       );
       console.log("Submission successful, navigating to the previous page.");
