@@ -239,6 +239,7 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
     serumSodium: "",
     smoking: false,
     followUpPeriodDays: "",
+    clinicalDate: "" // Added clinicalDate field
   });
 
   const navigate = useNavigate();
@@ -255,10 +256,23 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
     event.preventDefault();
     console.log("Patient details submitted:", formData);
 
-    try {      
+    try {
+      // Format the formData object to match the expected structure
+      const formattedData = {
+        ...formData,
+        creatininePhosphokinase: Number(formData.creatininePhosphokinase),
+        ejectionFraction: Number(formData.ejectionFraction),
+        bloodPressure: Number(formData.bloodPressure),
+        platelets: Number(formData.platelets),
+        serumCreatinine: Number(formData.serumCreatinine),
+        serumSodium: Number(formData.serumSodium),
+        followUpPeriodDays: Number(formData.followUpPeriodDays),
+        clinicalDate: new Date(formData.clinicalDate).toISOString(), // Ensure proper date formatting
+      };
+
       await axiosClient.post(
         `/doctors/patients/${patientId}/clinical-data`,
-        formData
+        formattedData
       );
       console.log("Submission successful, navigating to the previous page.");
       onClose(); // Close the modal
@@ -430,6 +444,20 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
             />
           </div>
 
+          {/* Clinical Date */}
+          <div className="flex flex-col">
+            <label htmlFor="clinicalDate" className="text-gray-700">
+              Clinical Date:
+            </label>
+            <input
+              type="datetime-local"
+              name="clinicalDate"
+              value={formData.clinicalDate}
+              onChange={handleChange}
+              className="p-2 border rounded-md"
+            />
+          </div>
+
           <button
             type="submit"
             className="py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all"
@@ -443,10 +471,3 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
 };
 
 export default PatientClinicalDataSubmission;
-
-
-
-
-
-
-
