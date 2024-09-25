@@ -20,6 +20,9 @@ import AdminPatientInfoChange from "../pages/Admin/AdminPatientInfoChange"; // I
 import DoctorDashboard from "../components/DoctorComponents/DoctorDashboard";
 import GetDoctorsPatients from "../components/DoctorComponents/DoctorFunctionlities/GetDoctorsPatients";
 import MedicalInfo from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/MedicalInfo";
+import GetAdvice from "../components/ServicePageComponent/GetAdvice";
+import CreateDietPlan from "../components/ServicePageComponent/CreateDietPlan";
+import Meditate from "../components/ServicePageComponent/Meditate";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -79,6 +82,8 @@ const AppRoutes = createBrowserRouter([
     ],
   },
 
+  
+
   { path: "/", element: <HomePage /> },
   { path: "/login", element: <LoginPage /> },
 
@@ -88,6 +93,9 @@ const AppRoutes = createBrowserRouter([
   { path: "/register-patient", element: <RegisterPage /> },
   { path: "/register-user", element: <RegisterUser /> },
   { path: "/services", element: <ServicesPage /> },
+  { path: "/services/getadvice", element: <GetAdvice /> },
+  { path: "/services/meditate", element: <Meditate /> },  
+  { path: "/services/createdietplan", element: <CreateDietPlan/> },
   { path: "/admin-dashboard", element: <AdminDashboard /> }, // Admin dashboard standalone route
   { path: "/patient-dashboard", element: <PatientDashboard /> }, // Patient dashboard standalone route
   { path: "/tests2", element: <Tests /> }, // Testing page route
