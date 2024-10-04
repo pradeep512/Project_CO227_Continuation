@@ -19,19 +19,21 @@ const AdminMainLayout = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar will remain fixed to the left */}
-      <div className="w-64 fixed top-0 left-0 h-full">
+      <div className="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-20">
         <Sidebar />
       </div>
 
       {/* Main content area, with margin to make space for the sidebar */}
-      <div className="flex flex-col w-full ml-64">
-        {/* Pass handleLogout to TopBar */}
-        <TopBar patientName={"HI"} handleLogout={handleLogout} />
+      <div className="flex-1 flex flex-col ml-64">
+        {/* TopBar will be fixed at the top */}
+        <div className="fixed top-0 left-64 right-0 h-16 bg-white shadow-lg z-10">
+          <TopBar patientName={"HI"} handleLogout={handleLogout} />
+        </div>
 
-        {/* This Outlet will load the corresponding page component */}
-        <div className="p-6">
+        {/* Main content section */}
+        <div className="flex-1 mt-16 overflow-y-auto p-6">
           <Outlet />
         </div>
       </div>

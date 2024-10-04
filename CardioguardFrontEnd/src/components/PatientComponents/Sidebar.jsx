@@ -5,7 +5,7 @@ const Sidebar = () => {
   const location = useLocation(); // Get the current path
 
   return (
-    <div className="w-64 bg-gray-100 h-screen p-6 shadow-lg flex flex-col items-center">
+    <div className="w-64 bg-white h-screen p-6 shadow-lg flex flex-col items-center">
       {/* Add the image */}
       <img
         src="/src/images/CardioGuard.webp"
@@ -18,8 +18,8 @@ const Sidebar = () => {
           to="/patient"
           className={() =>
             `flex items-center py-3 px-4 text-gray-600 hover:bg-gray-100 rounded-lg ${
-              location.pathname === "/tests"
-                ? "bg-[#A9F0E4] text-[#2C3746]"
+              location.pathname === "/patient"
+                ? "bg-gray-100 text-gray-600"
                 : ""
             }`
           }
@@ -28,11 +28,11 @@ const Sidebar = () => {
           Dashboard
         </NavLink>
         <NavLink
-          to="/patient/patients"
+          to="/patient/medicalinfo"
           className={() =>
             `flex items-center py-3 px-4 text-gray-600 hover:bg-gray-100 rounded-lg ${
-              location.pathname.startsWith("/tests/patients")
-                ? "bg-[#A9F0E4] text-[#2C3746]"
+              location.pathname === "/patient/medicalinfo"
+                ? "bg-gray-100 text-gray-600"
                 : ""
             }`
           }
@@ -44,8 +44,8 @@ const Sidebar = () => {
           to="/patient/doctors"
           className={() =>
             `flex items-center py-3 px-4 text-gray-600 hover:bg-gray-100 rounded-lg ${
-              location.pathname.startsWith("/doctors")
-                ? "bg-[#A9F0E4] text-[#2C3746]"
+              location.pathname === "/patient/doctors"
+                ? "bg-gray-100 text-gray-600"
                 : ""
             }`
           }
@@ -57,8 +57,8 @@ const Sidebar = () => {
           to="/patient/predictions"
           className={() =>
             `flex items-center py-3 px-4 text-gray-600 hover:bg-gray-100 rounded-lg ${
-              location.pathname.startsWith("/departments")
-                ? "bg-[#A9F0E4] text-[#2C3746]"
+              location.pathname === "/patient/predictions"
+                ? "bg-gray-100 text-gray-600"
                 : ""
             }`
           }

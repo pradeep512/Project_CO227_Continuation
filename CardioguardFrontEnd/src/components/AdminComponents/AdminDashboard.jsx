@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client"; // Updated path for axiosClient
 import PatientOverviewChart from "../AdminComponents/PatientOverviewChart";
 import RevenueChart from "../AdminComponents/RevenueChart";
-import SearchDoctors from "../SearchDoctors";
-import SearchPatients from "../SearchPatients";
+
+import SearchPatients from "./AdminFunctionlities/SearchPatients";
+import SearchDoctors from "./AdminFunctionlities/SearchDoctors";
 
 const AdminDashboard = () => {
   const [data, setData] = useState({
@@ -45,13 +46,6 @@ const AdminDashboard = () => {
 
   // Fetch dashboard data and total patients and doctors when the component mounts
   useEffect(() => {
-    axiosClient
-      .get("/api/dashboard")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => console.error("Error fetching dashboard data:", error));
-
     // Fetch the total number of patients and doctors when the component mounts
     fetchTotalPatients();
     fetchTotalDoctors();

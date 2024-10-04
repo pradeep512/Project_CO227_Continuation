@@ -25,7 +25,7 @@ const TopBar = ({ doctorName, handleLogout }) => {
       <div className="flex items-center">
         <input
           type="text"
-          placeholder="Search anything"
+          placeholder="Search"
           className="px-4 py-2 border rounded-md shadow-sm"
           style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
         />
@@ -35,7 +35,7 @@ const TopBar = ({ doctorName, handleLogout }) => {
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-600"
           style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
-          onClick={() => handleLogout()}
+          onClick={() => (window.location.href = "\\")}
         >
           Home
         </button>
@@ -43,7 +43,7 @@ const TopBar = ({ doctorName, handleLogout }) => {
         <button
           className="bg-red-500 text-white py-2 px-4 rounded-md shadow-lg hover:bg-red-600"
           style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
-          onClick={handleLogout}
+          onClick={() => handleLogout()}
         >
           Log Out
         </button>

@@ -14,6 +14,7 @@ import com.example.MediguardBackEnd.repositories.RoleRepository;
 import com.example.MediguardBackEnd.repositories.UserRepository;
 import com.example.MediguardBackEnd.security.JWTGenerator;
 import com.example.MediguardBackEnd.security.SecurityConfig;
+import com.example.MediguardBackEnd.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,13 +42,14 @@ public class AuthenticationController {
     private final JWTGenerator jwtGenerator;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+    private final UserService userService;
 
 
     @Autowired
     public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository,
                                     RoleRepository roleRepository, PasswordEncoder passwordEncoder,
                                     JWTGenerator jwtGenerator, PatientRepository patientRepository,
-                                    DoctorRepository doctorRepository) {
+                                    DoctorRepository doctorRepository, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -55,6 +57,7 @@ public class AuthenticationController {
         this.jwtGenerator = jwtGenerator;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
+        this.userService = userService;
     }
 
     @PostMapping("login")
@@ -62,10 +65,9 @@ public class AuthenticationController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldErrors(), HttpStatus.BAD_REQUEST);
         }
-        System.out.println();
+
         UserEntity user = userRepository.findByUsername(loginDTO.getUsername())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("User does not exist!"));
+                .orElseThrow(() -> new ResourceNotFoundException("User does not exist!"));
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
@@ -74,15 +76,35 @@ public class AuthenticationController {
 
         List<String> roles = user.getRoles().stream().map(Role::getName).toList();
 
+        // Create the userRoles list
         List<Map<String, Object>> userRoles = user.getRoles().stream().map(role -> {
             Map<String, Object> map = new HashMap<>();
             map.put("user", user.getId());
             map.put("role", role.getName());
+
+            // Initialize patientId and doctorId as null
+            Long patientId = null;
+            Long doctorId = null;
+
+            // Check role and set patientId or doctorId
+            if ("USER".equals(role.getName())) {
+                // Get patientId using getPatientByUserId in UserService
+                patientId = userService.getPatientByUserId(user.getId());
+            } else if ("DOCTOR".equals(role.getName())) {
+                // Get doctorId using getDoctorByUserId in UserService
+                doctorId = userService.getDoctorByUserId(user.getId());
+            }
+
+            // Add patientId and doctorId to the map
+            map.put("patientId", patientId);
+            map.put("doctorId", doctorId);
+
             return map;
         }).toList();
 
         return new ResponseEntity<>(new AuthenticationResponseDTO(token, (long) user.getId(), roles, userRoles), HttpStatus.OK);
     }
+
 
     @PostMapping("register/patient/{patientId}")
     public ResponseEntity<String> registerPatient(@Valid @RequestBody RegisterDTO registerDTO, @PathVariable long patientId) {
