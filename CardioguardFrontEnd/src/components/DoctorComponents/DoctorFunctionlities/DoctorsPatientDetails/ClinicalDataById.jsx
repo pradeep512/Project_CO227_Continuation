@@ -591,6 +591,7 @@ const ClinicalDataById = () => {
       const clinicalDataResponse = await axiosClient.get(
         `/doctors/patients/${patientId}/clinical-data`
       );
+      // console.log(clinicalDataResponse);
 
       if (clinicalDataResponse.data && clinicalDataResponse.data.length > 0) {
         // Sort the clinical data by clinicalDate in descending order
@@ -642,7 +643,11 @@ const ClinicalDataById = () => {
   const handleDeleteRecord = async (index) => {
     try {
       const record = clinicalData[index];
-      await axiosClient.delete(`/doctors/patients/${patientId}/clinical-data/${record.id}`); // Adjust the API endpoint as necessary
+      console.log(record.clinicalDataId);
+      console.log(clinicalData);
+
+      
+      await axiosClient.delete(`/doctors/patients/${patientId}/clinical-data/${record.clinicalDataId}`); // Adjust the API endpoint as necessary
       // Refresh the data
       fetchClinicalData();
     } catch (err) {
@@ -842,7 +847,7 @@ const ClinicalDataById = () => {
         ) : (
           <PatientClinicalDataUpdate
             patientId={patientId}
-            clinicalDataId={clinicalData[editIndex]?.id} // Ensure the correct id is passed here
+            clinicalDataId={clinicalData[editIndex]?.clinicalDataId} // Ensure the correct id is passed here
             onClose={handleCloseModal}
           />
         )}

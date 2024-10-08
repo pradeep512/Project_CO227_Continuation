@@ -5,16 +5,17 @@ import { useNavigate } from "react-router-dom";
 const PatientClinicalDataUpdate = ({ patientId, clinicalDataId, onClose }) => {
   const [formData, setFormData] = useState({
     diagnosisOfHeartDisease: false,
-    presenceOfAnemia: false,
-    creatininePhosphokinase: "",
+    presenceOfAnemia: true,
+    creatininePhosphokinase: 150,
     diabetes: false,
-    ejectionFraction: "",
-    bloodPressure: "",
-    platelets: "",
-    serumCreatinine: "",
-    serumSodium: "",
-    smoking: false,
-    followUpPeriodDays: "",
+    ejectionFraction: 55,
+    bloodPressure: 120,
+    platelets: 280000,
+    serumCreatinine: 0.9,
+    serumSodium: 145,
+    smoking: true,
+    followUpPeriodDays: 45,
+    clinicalDate: "2024-07-10T10:00:00Z",
   });
 
   const navigate = useNavigate();
@@ -61,13 +62,16 @@ const PatientClinicalDataUpdate = ({ patientId, clinicalDataId, onClose }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 to-orange-300">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl">
         <h1 className="text-2xl font-bold text-center mb-6">
           Patient Clinical Data Update Form
         </h1>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form 
+          onSubmit={handleSubmit} 
+          className="grid grid-cols-2 gap-4 max-h-[500px] overflow-y-auto"
+        >
           {/* Diagnosis of Heart Disease */}
           <div className="flex items-center gap-2">
             <input
@@ -222,12 +226,28 @@ const PatientClinicalDataUpdate = ({ patientId, clinicalDataId, onClose }) => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all"
-          >
-            Update
-          </button>
+          {/* Clinical Date */}
+          <div className="flex flex-col">
+            <label htmlFor="clinicalDate" className="text-gray-700">
+              Clinical Date:
+            </label>
+            <input
+              type="datetime-local"
+              name="clinicalDate"
+              value={new Date(formData.clinicalDate).toISOString().slice(0, 16)}
+              onChange={handleChange}
+              className="p-2 border rounded-md"
+            />
+          </div>
+
+          <div className="col-span-2">
+            <button
+              type="submit"
+              className="w-full py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all"
+            >
+              Update
+            </button>
+          </div>
         </form>
       </div>
     </div>
