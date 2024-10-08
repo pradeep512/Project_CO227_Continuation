@@ -50,3 +50,5 @@ const Modal = ({ isVisible, onClose, children }) => {
 
 export default Modal;
 
+
+
