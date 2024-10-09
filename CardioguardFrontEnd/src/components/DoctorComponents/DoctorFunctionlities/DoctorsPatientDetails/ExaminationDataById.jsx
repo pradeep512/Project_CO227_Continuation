@@ -260,7 +260,7 @@
 
 
 import React, { useState, useEffect, useCallback } from "react";
-import axiosClient from "../../../../../axios-client";
+import axiosClient from "../../../../../axios-client"; // Adjust the path to your axios-client
 import { useParams } from "react-router-dom";
 import Modal from "./Modal"; // Adjust the path to your modal component
 import DoctorExaminationUpdate from "./UpdateDoctorExamination"; // Import the update component
@@ -272,8 +272,8 @@ const ExaminationDataById = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expandedRows, setExpandedRows] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
-  const [editIndex, setEditIndex] = useState(null); // Track the index of the row being edited
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
 
   // Fetch examination data
   const fetchExaminationData = useCallback(async () => {
@@ -313,22 +313,19 @@ const ExaminationDataById = () => {
     }));
   };
 
-  // Open the modal to add a record
   const handleAddRecord = () => {
-    setEditIndex(null); // Clear the edit index for adding a new record
+    setEditIndex(null);
     setIsModalOpen(true);
   };
 
-  // Open the modal to edit a record
   const handleEditRecord = (index) => {
-    setEditIndex(index); // Set the edit index
+    setEditIndex(index);
     setIsModalOpen(true);
   };
 
-  // Close the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setEditIndex(null); // Reset the edit index when modal closes
+    setEditIndex(null);
   };
 
   const handleDeleteRecord = async (index) => {
@@ -348,7 +345,6 @@ const ExaminationDataById = () => {
         <p className="font-semibold pr-4">Patient ID : {patientId}</p>
       </div>
 
-      {/* Add Record button */}
       <div className="mb-4 flex justify-end">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -358,13 +354,9 @@ const ExaminationDataById = () => {
         </button>
       </div>
 
-      {/* Loading indicator */}
       {loading && <p className="text-blue-500 text-center">Loading data...</p>}
-
-      {/* Error message */}
       {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
-      {/* Display examination data */}
       {examinationData.length > 0 && (
         <div className="bg-gray-50 rounded-md p-4">
           <div className="overflow-y-auto" style={{ maxHeight: "500px" }}>
@@ -378,7 +370,6 @@ const ExaminationDataById = () => {
               <tbody>
                 {examinationData.map((data, index) => (
                   <React.Fragment key={index}>
-                    {/* Main row */}
                     <tr
                       className="bg-white border-b cursor-pointer"
                       onClick={() => toggleRowExpansion(index)}
@@ -390,14 +381,11 @@ const ExaminationDataById = () => {
                         {expandedRows[index] ? "Hide Details" : "Show Details"}
                       </td>
                     </tr>
-
-                    {/* Expanded row details */}
                     {expandedRows[index] && (
                       <tr className="bg-gray-100 border-b">
                         <td colSpan="2" className="px-4 py-2">
                           <div className="flex">
                             <div className="w-1/2 pr-4">
-                              {/* Add the examination details */}
                               <ul>
                                 <li>
                                   Tachycardia at Rest:{" "}
@@ -453,9 +441,7 @@ const ExaminationDataById = () => {
                                 </li>
                               </ul>
                             </div>
-                            {/* Other columns */}
                           </div>
-                          {/* Update and Delete buttons */}
                           <div className="mt-4 flex justify-end">
                             <button
                               className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 mr-2 rounded"
@@ -481,20 +467,19 @@ const ExaminationDataById = () => {
         </div>
       )}
 
-      {/* Modal for adding/updating records */}
       <Modal isVisible={isModalOpen} onClose={handleCloseModal}>
         {editIndex !== null ? (
           <DoctorExaminationUpdate
             patientId={patientId}
-            record={examinationData[editIndex]}
+            examinationData={examinationData[editIndex]}
             onClose={handleCloseModal}
-            refreshData={fetchExaminationData}
+            fetchData={fetchExaminationData}
           />
         ) : (
           <DoctorExaminationSubmission
             patientId={patientId}
             onClose={handleCloseModal}
-            refreshData={fetchExaminationData}
+            fetchData={fetchExaminationData}
           />
         )}
       </Modal>
@@ -503,6 +488,7 @@ const ExaminationDataById = () => {
 };
 
 export default ExaminationDataById;
+
 
 
 

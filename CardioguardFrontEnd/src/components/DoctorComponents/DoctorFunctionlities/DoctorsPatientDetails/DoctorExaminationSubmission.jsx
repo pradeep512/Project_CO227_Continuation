@@ -39,7 +39,7 @@ const DoctorExaminationSubmission = ({ patientId, onClose }) => {
       await axiosClient.post(`/doctors/${patientId}/examines`, formattedData);
       console.log("Submission successful, navigating to the previous page.");
       onClose(); // Close the modal
-      navigate(-1); // Navigate to the previous page
+      //navigate(-1); // Navigate to the previous page
     } catch (error) {
       console.error("There was an error with the submission:", error);
     }

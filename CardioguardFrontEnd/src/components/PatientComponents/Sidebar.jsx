@@ -66,6 +66,19 @@ const Sidebar = () => {
           <FiHeart className="mr-3" />
           Predictions
         </NavLink>
+        <NavLink
+          to="/patient/read_more"
+          className={() =>
+            `flex items-center py-3 px-4 text-gray-600 hover:bg-gray-100 rounded-lg ${
+              location.pathname === "/patient/predictions"
+                ? "bg-gray-100 text-gray-600"
+                : ""
+            }`
+          }
+        >
+          <FiHeart className="mr-3" />
+          Read more
+        </NavLink>
       </nav>
     </div>
   );

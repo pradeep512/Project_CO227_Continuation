@@ -24,6 +24,7 @@ import Meditate from "../components/ServicePageComponent/Meditate";
 import PatientDashboard from "../components/PatientComponents/PatientDashborad";
 import PatientMedicalInfo from "../components/PatientComponents/PatientFunctionlities/PatientDashboardDetails/PatientMedicalInfo";
 import Prediction from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/Prediction";
+import ReadData from "../components/PatientComponents/PatientFunctionlities/ReadData";
 
 
 const AppRoutes = createBrowserRouter([
@@ -60,6 +61,10 @@ const AppRoutes = createBrowserRouter([
       {
         path: "medicalinfo", // Patient medical info page
         element: <PatientMedicalInfo />,
+      },
+      {
+        path: "read_more",
+        element: <ReadData />,
       },
     ],
   },

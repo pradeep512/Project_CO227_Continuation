@@ -1,8 +1,9 @@
+import React from 'react';
 import SymptomDataById from "./SymptomsDataById";
 import ClinicalDataById from "./ClinicalDataById";
 import ExaminationDataById from "./ExaminationDataById";
 
-const MedicalInfo = () => {
+const MedicalInfo = ({ patientId }) => {
   return (
     <div className="mb-4">
       <SymptomDataById />

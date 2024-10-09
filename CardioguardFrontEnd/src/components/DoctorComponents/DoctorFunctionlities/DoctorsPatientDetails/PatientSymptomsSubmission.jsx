@@ -26,6 +26,7 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Patient symptoms details submitted:", formData);
+    console.log("Patient ID:", patientId);
 
     try {
       // Format the formData object to match the expected structure
@@ -37,7 +38,7 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
       await axiosClient.post(`doctors/patients/${patientId}/symptoms`, formattedData);
       console.log("Submission successful, navigating to the previous page.");
       onClose(); // Close the modal
-      navigate(-1); // Navigate to the previous page
+      //navigate(-1); // Navigate to the previous page
     } catch (error) {
       console.error("There was an error with the submission:", error);
     }

@@ -245,6 +245,7 @@ import { useParams } from "react-router-dom";
 import Modal from "./Modal"; // Adjust the path to your modal component
 import SymptomsUpdate from "./SymptomsUpdate"; // Import the update component
 import PatientSymptomsSubmission from "./PatientSymptomsSubmission"; // Import the add record component
+import ClinicalDataChart from "./ClinicalDataChart";
 
 const SymptomDataById = () => {
   const { patientId } = useParams();
@@ -314,7 +315,7 @@ const SymptomDataById = () => {
   const handleDeleteRecord = async (index) => {
     try {
       const record = symptomData[index];
-      await axiosClient.delete(`/symptoms/${record.symptomCode}`);
+      await axiosClient.delete(`/doctors/patients/${patientId}/symptoms/${record.symptomCode}`);
       fetchSymptomData(); // Refresh the data
     } catch (err) {
       console.error("Error deleting symptom data:", err);
@@ -351,50 +352,68 @@ const SymptomDataById = () => {
             <table className="min-w-full table-auto">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="px-4 py-2">Date (M/D/Y)</th>
-                  <th className="px-4 py-2 w-2/3">Details</th>
+                  <th className="px-4 py-2">Date(M/D/Y)</th>
+                  <th className="px-4 py-2 w-1/3">Details</th>
+                  <th className="px-4 py-2">Doctor Recommendation</th>
                 </tr>
               </thead>
               <tbody>
-                {symptomData.map((data, index) => (
+                {symptomData.map((symptom, index) => (
                   <React.Fragment key={index}>
                     {/* Main row */}
                     <tr
                       className="bg-white border-b cursor-pointer"
-                      onClick={() => toggleRowExpansion(index)}
+                      onClick={() => toggleRowExpansion(index)} // Toggle on click
                     >
-                      <td className="px-4 py-2 align-top">
-                        {new Date(data.symptomDate).toLocaleDateString()}
+                      <td className="px-4 py-2">
+                        {new Date(symptom.symptomDate).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-2 text-gray-700">
                         {expandedRows[index] ? "Hide Details" : "Show Details"}
+                      </td>
+                      <td className="px-4 py-2 text-gray-700">
+                        {symptom.doctorRecommendation || "N/A"}
                       </td>
                     </tr>
 
                     {/* Expanded row details */}
                     {expandedRows[index] && (
                       <tr className="bg-gray-100 border-b">
-                        <td colSpan="2" className="px-4 py-2">
+                        <td colSpan="3" className="px-4 py-2">
                           <div className="flex">
                             <div className="w-1/2 pr-4">
                               {/* Add the symptom details */}
                               <ul>
                                 <li>
                                   Bilateral Lower Limb Swelling:{" "}
-                                  <span className={data.bilateralLowerLimbSwelling ? "text-red-500" : "text-green-500"}>
-                                    {data.bilateralLowerLimbSwelling ? "Yes" : "No"}
+                                  <span
+                                    className={
+                                      symptom.bilateralLowerLimbSwelling
+                                        ? "text-red-500"
+                                        : "text-green-500"
+                                    }
+                                  >
+                                    {symptom.bilateralLowerLimbSwelling ? "Yes" : "No"}
                                   </span>
                                 </li>
                                 <li>
                                   Dyspnoea:{" "}
-                                  <span className={data.dyspnoea ? "text-red-500" : "text-green-500"}>
-                                    {data.dyspnoea ? "Yes" : "No"}
+                                  <span
+                                    className={
+                                      symptom.dyspnoea ? "text-red-500" : "text-green-500"
+                                    }
+                                  >
+                                    {symptom.dyspnoea ? "Yes" : "No"}
                                   </span>
                                 </li>
                                 <li>
                                   Orthopnoea:{" "}
-                                  <span className={data.orthopnoea ? "text-red-500" : "text-green-500"}>
-                                    {data.orthopnoea ? "Yes" : "No"}
+                                  <span
+                                    className={
+                                      symptom.orthopnoea ? "text-red-500" : "text-green-500"
+                                    }
+                                  >
+                                    {symptom.orthopnoea ? "Yes" : "No"}
                                   </span>
                                 </li>
                               </ul>
@@ -403,14 +422,24 @@ const SymptomDataById = () => {
                               <ul>
                                 <li>
                                   Paroxysmal Nocturnal Dyspnoea:{" "}
-                                  <span className={data.paroxysmalNocturnalDyspnoea ? "text-red-500" : "text-green-500"}>
-                                    {data.paroxysmalNocturnalDyspnoea ? "Yes" : "No"}
+                                  <span
+                                    className={
+                                      symptom.paroxysmalNocturnalDyspnoea
+                                        ? "text-red-500"
+                                        : "text-green-500"
+                                    }
+                                  >
+                                    {symptom.paroxysmalNocturnalDyspnoea ? "Yes" : "No"}
                                   </span>
                                 </li>
                                 <li>
                                   Fatigue:{" "}
-                                  <span className={data.fatigue ? "text-red-500" : "text-green-500"}>
-                                    {data.fatigue ? "Yes" : "No"}
+                                  <span
+                                    className={
+                                      symptom.fatigue ? "text-red-500" : "text-green-500"
+                                    }
+                                  >
+                                    {symptom.fatigue ? "Yes" : "No"}
                                   </span>
                                 </li>
                               </ul>
@@ -450,7 +479,7 @@ const SymptomDataById = () => {
       {/* Modal for adding/updating records */}
       <Modal isVisible={isModalOpen} onClose={handleCloseModal}>
         {editIndex === null ? (
-          <PatientSymptomsSubmission onClose={handleCloseModal} />
+          <PatientSymptomsSubmission patientId={patientId} onClose={handleCloseModal} />
         ) : (
           <SymptomsUpdate
             examination={symptomData[editIndex]}
@@ -458,6 +487,7 @@ const SymptomDataById = () => {
           />
         )}
       </Modal>
+      <ClinicalDataChart patientId={patientId} />
     </div>
   );
 };
