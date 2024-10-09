@@ -61,6 +61,9 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<DoctorExamination>  examinationCode;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PredictionData>  predictionDataId;
+
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -91,6 +94,22 @@ public class Patient {
         this.clinicalData = clinicalData;
         this.symptomCode = symptomCode;
         this.examinationCode = examinationCode;
+        this.users = users;
+    }
+
+    public Patient(Long patientId, String nic, String firstName, String lastName, String gender, LocalDate dateOfBirth, String email, Set<Doctor> visitedDoctorsForPatient, Set<PatientClinicalData> clinicalData, Set<PatientSymptoms> symptomCode, Set<DoctorExamination> examinationCode, Set<PredictionData> predictionDataId, UserEntity users) {
+        this.patientId = patientId;
+        this.nic = nic;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.visitedDoctorsForPatient = visitedDoctorsForPatient;
+        this.clinicalData = clinicalData;
+        this.symptomCode = symptomCode;
+        this.examinationCode = examinationCode;
+        this.predictionDataId = predictionDataId;
         this.users = users;
     }
 
@@ -215,6 +234,14 @@ public class Patient {
         this.examinationCode = examinationCode;
     }
 
+    public Set<PredictionData> getPredictionDataId() {
+        return predictionDataId;
+    }
+
+    public void setPredictionDataId(Set<PredictionData> predictionDataId) {
+        this.predictionDataId = predictionDataId;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -229,6 +256,7 @@ public class Patient {
                 ", clinicalData=" + clinicalData +
                 ", symptomCode=" + symptomCode +
                 ", examinationCode=" + examinationCode +
+                ", predictionDataId=" + predictionDataId +
                 ", users=" + users +
                 '}';
     }
