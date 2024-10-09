@@ -1,12 +1,20 @@
 package com.example.MediguardBackEnd.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity(name = "prediction_data")
 @DynamicInsert
 @DynamicUpdate
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "prediction_data")
 public class PredictionData {
     @Id
@@ -53,4 +61,7 @@ public class PredictionData {
     @Column(name = "thal", nullable = false)
     private int thal; // Thalassemia
 
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 }
