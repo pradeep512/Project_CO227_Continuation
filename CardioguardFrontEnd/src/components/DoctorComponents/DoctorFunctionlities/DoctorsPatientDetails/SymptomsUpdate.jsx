@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import axiosClient from '../../../../../axios-client'; // Adjust the path to your axios-client
+import { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
+import axiosClient from "../../../../../axios-client"; // Adjust the path to your axios-client
 
 const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
   // Initialize state for form fields, defaulting to the symptomsData or fallback to false/null
   const [formData, setFormData] = useState({
-    bilateralLowerLimbSwelling: symptomsData?.bilateralLowerLimbSwelling || false,
+    bilateralLowerLimbSwelling:
+      symptomsData?.bilateralLowerLimbSwelling || false,
     dyspnoea: symptomsData?.dyspnoea || false,
     orthopnoea: symptomsData?.orthopnoea || false,
-    paroxysmalNocturnalDyspnoea: symptomsData?.paroxysmalNocturnalDyspnoea || false,
+    paroxysmalNocturnalDyspnoea:
+      symptomsData?.paroxysmalNocturnalDyspnoea || false,
     fatigue: symptomsData?.fatigue || false,
-    doctorRecommendation: symptomsData?.doctorRecommendation || '',
-    symptomDate: symptomsData?.symptomDate || '',
+    doctorRecommendation: symptomsData?.doctorRecommendation || "",
+    symptomDate: symptomsData?.symptomDate || "",
   });
 
   // Handle input changes and update the formData state
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const updatedValue = type === 'checkbox' ? checked : value;
+    const updatedValue = type === "checkbox" ? checked : value;
     setFormData((prevData) => ({
       ...prevData,
       [name]: updatedValue,
@@ -26,14 +29,15 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Update the existing record using PUT request
-      await axiosClient.put(`/patients/${patientId}/symptoms/${symptomsData.symptomCode}`, formData);
-      fetchData(); // Refresh the data after successful update
-      onClose(); // Close the modal
+      await axiosClient.put(
+        `/doctors/patients/${patientId}/symptoms/${symptomsData.symptomCode}`,
+        formData
+      );
+      fetchData();
+      onClose();
     } catch (err) {
-      console.error('Error updating symptoms data:', err);
+      console.error("Error updating symptoms data:", err);
     }
   };
 
@@ -56,7 +60,9 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
           </div>
 
           <div>
-            <label className="block font-bold mb-2">Bilateral Lower Limb Swelling:</label>
+            <label className="block font-bold mb-2">
+              Bilateral Lower Limb Swelling:
+            </label>
             <input
               type="checkbox"
               name="bilateralLowerLimbSwelling"
@@ -64,7 +70,7 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
               onChange={handleInputChange}
               className="mr-2"
             />
-            <span>{formData.bilateralLowerLimbSwelling ? 'Yes' : 'No'}</span>
+            <span>{formData.bilateralLowerLimbSwelling ? "Yes" : "No"}</span>
           </div>
 
           <div>
@@ -76,7 +82,7 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
               onChange={handleInputChange}
               className="mr-2"
             />
-            <span>{formData.dyspnoea ? 'Yes' : 'No'}</span>
+            <span>{formData.dyspnoea ? "Yes" : "No"}</span>
           </div>
 
           <div>
@@ -88,11 +94,13 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
               onChange={handleInputChange}
               className="mr-2"
             />
-            <span>{formData.orthopnoea ? 'Yes' : 'No'}</span>
+            <span>{formData.orthopnoea ? "Yes" : "No"}</span>
           </div>
 
           <div>
-            <label className="block font-bold mb-2">Paroxysmal Nocturnal Dyspnoea:</label>
+            <label className="block font-bold mb-2">
+              Paroxysmal Nocturnal Dyspnoea:
+            </label>
             <input
               type="checkbox"
               name="paroxysmalNocturnalDyspnoea"
@@ -100,7 +108,7 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
               onChange={handleInputChange}
               className="mr-2"
             />
-            <span>{formData.paroxysmalNocturnalDyspnoea ? 'Yes' : 'No'}</span>
+            <span>{formData.paroxysmalNocturnalDyspnoea ? "Yes" : "No"}</span>
           </div>
 
           <div>
@@ -112,11 +120,13 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
               onChange={handleInputChange}
               className="mr-2"
             />
-            <span>{formData.fatigue ? 'Yes' : 'No'}</span>
+            <span>{formData.fatigue ? "Yes" : "No"}</span>
           </div>
 
           <div className="md:col-span-2">
-            <label className="block font-bold mb-2">Doctor Recommendation:</label>
+            <label className="block font-bold mb-2">
+              Doctor Recommendation:
+            </label>
             <textarea
               name="doctorRecommendation"
               value={formData.doctorRecommendation}
@@ -145,6 +155,23 @@ const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
       </form>
     </div>
   );
+};
+
+// Define PropTypes for the component
+SymptomsUpdate.propTypes = {
+  patientId: PropTypes.string.isRequired,
+  symptomsData: PropTypes.shape({
+    bilateralLowerLimbSwelling: PropTypes.bool,
+    dyspnoea: PropTypes.bool,
+    orthopnoea: PropTypes.bool,
+    paroxysmalNocturnalDyspnoea: PropTypes.bool,
+    fatigue: PropTypes.bool,
+    doctorRecommendation: PropTypes.string,
+    symptomDate: PropTypes.string,
+    symptomCode: PropTypes.string.isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  fetchData: PropTypes.func.isRequired,
 };
 
 export default SymptomsUpdate;
