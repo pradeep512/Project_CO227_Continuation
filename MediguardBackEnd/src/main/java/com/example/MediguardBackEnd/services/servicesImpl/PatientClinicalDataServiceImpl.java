@@ -8,6 +8,8 @@ import com.example.MediguardBackEnd.mapper.PatientClinicalDataMapper;
 import com.example.MediguardBackEnd.repositories.PatientClinicalDataRepository;
 import com.example.MediguardBackEnd.repositories.PatientRepository;
 import com.example.MediguardBackEnd.services.PatientClinicalDataService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,12 +64,23 @@ public class PatientClinicalDataServiceImpl implements PatientClinicalDataServic
     }
 
     @Override
-    public PatientClinicalDataDTO getClinicalDataById(Long patientId,Long clinicalDataId) {
+    public PatientClinicalDataDTO getClinicalDataById(Long patientId, Long clinicalDataId) {
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("Received request for patientId: {} and clinicalDataId: {}", patientId, clinicalDataId);
+
         PatientClinicalData patientClinicalData = clinicalDataRepository.findById(clinicalDataId)
                 .orElseThrow(() -> new ResourceNotFoundException("Clinical data not found with ID: " + clinicalDataId));
-        if(patientClinicalData.getPatient().getPatientId().equals(patientId)){
-            throw new ResourceNotFoundException("Patient with patient ID : " + patientId + " does not have a record for Clinical data with ID :" + clinicalDataId);
+        logger.info("Fetched clinical data belongs to patientId: {}", patientClinicalData.getPatient().getPatientId());
+
+        if (!patientClinicalData.getPatient().getPatientId().equals(patientId)) {
+            logger.warn("Mismatch: Path variable patientId: {} does not match the clinical data's patientId: {}",
+                    patientId, patientClinicalData.getPatient().getPatientId());
+
+            throw new ResourceNotFoundException("Patient with patient ID : " + patientId +
+                    " does not have a record for Clinical data with ID :" + clinicalDataId);
         }
+
+        // Map and return the DTO
         return PatientClinicalDataMapper.mapToPatientClinicalDataDTO(patientClinicalData);
     }
 

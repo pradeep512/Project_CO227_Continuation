@@ -1,398 +1,59 @@
-// import React, { useState } from "react";
-// import axiosClient from "../../../../../axios-client"; // Adjust the path based on your structure
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import axiosClient from "../../../../../axios-client";
 
-// const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, refreshData }) => {
-//   const [formData, setFormData] = useState({
-//     tachycardiaAtRest: examinationData.tachycardiaAtRest,
-//     hypotension: examinationData.hypotension,
-//     raisedJugularVenousPressure: examinationData.raisedJugularVenousPressure,
-//     displacedApexBeat: examinationData.displacedApexBeat,
-//     pedalAndAnkleOedema: examinationData.pedalAndAnkleOedema,
-//     gallopRhythm: examinationData.gallopRhythm,
-//     tachypnoea: examinationData.tachypnoea,
-//     ascites: examinationData.ascites,
-//     examinationDate: examinationData.examinationDate,
-//   });
-
-//   const handleChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: type === "checkbox" ? checked : value,
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await axiosClient.put(
-//         `/doctors/${patientId}/examines/${examinationData.examinationCode}`,
-//         formData
-//       );
-//       refreshData(); // Refresh the data after the update
-//       onClose(); // Close the modal
-//     } catch (err) {
-//       console.error("Error updating examination data:", err);
-//     }
-//   };
-
-//   return (
-//     <div className="p-4">
-//       <h2 className="text-lg font-bold mb-4">Update Examination Details</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className="mb-4">
-//           <label>
-//             Tachycardia at Rest:
-//             <input
-//               type="checkbox"
-//               name="tachycardiaAtRest"
-//               checked={formData.tachycardiaAtRest}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Hypotension:
-//             <input
-//               type="checkbox"
-//               name="hypotension"
-//               checked={formData.hypotension}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Raised Jugular Venous Pressure:
-//             <input
-//               type="checkbox"
-//               name="raisedJugularVenousPressure"
-//               checked={formData.raisedJugularVenousPressure}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Displaced Apex Beat:
-//             <input
-//               type="checkbox"
-//               name="displacedApexBeat"
-//               checked={formData.displacedApexBeat}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Pedal and Ankle Oedema:
-//             <input
-//               type="checkbox"
-//               name="pedalAndAnkleOedema"
-//               checked={formData.pedalAndAnkleOedema}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Gallop Rhythm:
-//             <input
-//               type="checkbox"
-//               name="gallopRhythm"
-//               checked={formData.gallopRhythm}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Tachypnoea:
-//             <input
-//               type="checkbox"
-//               name="tachypnoea"
-//               checked={formData.tachypnoea}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Ascites:
-//             <input
-//               type="checkbox"
-//               name="ascites"
-//               checked={formData.ascites}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-//         <div className="mb-4">
-//           <label>
-//             Examination Date:
-//             <input
-//               type="date"
-//               name="examinationDate"
-//               value={formData.examinationDate}
-//               onChange={handleChange}
-//             />
-//           </label>
-//         </div>
-
-//         <div className="flex justify-end">
-//           <button
-//             type="submit"
-//             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-//           >
-//             Update
-//           </button>
-//           <button
-//             type="button"
-//             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2"
-//             onClick={onClose}
-//           >
-//             Cancel
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default DoctorExaminationUpdate;
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import axiosClient from '../../../../../axios-client'; // Adjust the path to your axios-client
-
-// const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchData }) => {
-//   // Initialize state for form fields, defaulting to the examinationData or fallback to false/null
-//   const [formData, setFormData] = useState({
-//     tachycardiaAtRest: examinationData?.tachycardiaAtRest || false,
-//     hypotension: examinationData?.hypotension || false,
-//     raisedJugularVenousPressure: examinationData?.raisedJugularVenousPressure || false,
-//     displacedApexBeat: examinationData?.displacedApexBeat || false,
-//     pleuralEffusion: examinationData?.pleuralEffusion || false,
-//     hepatomegaly: examinationData?.hepatomegaly || false,
-//     gallopRhythm: examinationData?.gallopRhythm || false,
-//     pedalAndAnkleOedema: examinationData?.pedalAndAnkleOedema || false,
-//     tachypnoea: examinationData?.tachypnoea || false,
-//     ascites: examinationData?.ascites || false,
-//     examinationDate: examinationData?.examinationDate || '',
-//   });
-
-//   // Handle input changes and update the formData state
-//   const handleInputChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     const updatedValue = type === 'checkbox' ? checked : value;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: updatedValue,
-//     }));
-//   };
-
-//   // Function to handle form submission
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       // Update the existing record using PUT request
-//       await axiosClient.put(`/doctors/${patientId}/examines/${examinationData.examinationCode}`, formData);
-//       fetchData(); // Refresh the data after successful update
-//       onClose(); // Close the modal
-//     } catch (err) {
-//       console.error('Error updating examination data:', err);
-//     }
-//   };
-
-//   return (
-//     <div className="p-4">
-//       <h2 className="text-2xl font-semibold mb-4">Update Doctor Examination</h2>
-
-//       <form onSubmit={handleSubmit}>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//           <div>
-//             <label className="block font-bold mb-2">Examination Date:</label>
-//             <input
-//               type="date"
-//               name="examinationDate"
-//               value={formData.examinationDate}
-//               onChange={handleInputChange}
-//               className="border rounded p-2 w-full"
-//               required
-//             />
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Tachycardia at Rest:</label>
-//             <input
-//               type="checkbox"
-//               name="tachycardiaAtRest"
-//               checked={formData.tachycardiaAtRest}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.tachycardiaAtRest ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Hypotension:</label>
-//             <input
-//               type="checkbox"
-//               name="hypotension"
-//               checked={formData.hypotension}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.hypotension ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Raised Jugular Venous Pressure:</label>
-//             <input
-//               type="checkbox"
-//               name="raisedJugularVenousPressure"
-//               checked={formData.raisedJugularVenousPressure}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.raisedJugularVenousPressure ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Displaced Apex Beat:</label>
-//             <input
-//               type="checkbox"
-//               name="displacedApexBeat"
-//               checked={formData.displacedApexBeat}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.displacedApexBeat ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Pleural Effusion:</label>
-//             <input
-//               type="checkbox"
-//               name="pleuralEffusion"
-//               checked={formData.pleuralEffusion}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.pleuralEffusion ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Hepatomegaly:</label>
-//             <input
-//               type="checkbox"
-//               name="hepatomegaly"
-//               checked={formData.hepatomegaly}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.hepatomegaly ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Gallop Rhythm:</label>
-//             <input
-//               type="checkbox"
-//               name="gallopRhythm"
-//               checked={formData.gallopRhythm}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.gallopRhythm ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Pedal and Ankle Oedema:</label>
-//             <input
-//               type="checkbox"
-//               name="pedalAndAnkleOedema"
-//               checked={formData.pedalAndAnkleOedema}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.pedalAndAnkleOedema ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Tachypnoea:</label>
-//             <input
-//               type="checkbox"
-//               name="tachypnoea"
-//               checked={formData.tachypnoea}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.tachypnoea ? 'Yes' : 'No'}</span>
-//           </div>
-
-//           <div>
-//             <label className="block font-bold mb-2">Ascites:</label>
-//             <input
-//               type="checkbox"
-//               name="ascites"
-//               checked={formData.ascites}
-//               onChange={handleInputChange}
-//               className="mr-2"
-//             />
-//             <span>{formData.ascites ? 'Yes' : 'No'}</span>
-//           </div>
-//         </div>
-
-//         <div className="mt-4 flex justify-end">
-//           <button
-//             type="submit"
-//             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-//           >
-//             Update
-//           </button>
-//           <button
-//             type="button"
-//             onClick={onClose}
-//             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2"
-//           >
-//             Cancel
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default DoctorExaminationUpdate;
-
-
-import React, { useEffect, useState } from "react";
-import axiosClient from "../../../../../axios-client"; // Adjust the path to your axios-client
-
-const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchData }) => {
+const DoctorExaminationUpdate = ({
+  patientId,
+  examinationData,
+  onClose,
+  fetchData,
+}) => {
+  // Initialize state for form fields, defaulting to the examinationData or fallback to false/null
   const [formData, setFormData] = useState({
     tachycardiaAtRest: false,
     hypotension: false,
+    narrowPulsePressure: false,
     raisedJugularVenousPressure: false,
     displacedApexBeat: false,
+    rightVentricularHeave: false,
+    pleuralEffusion: false,
+    hepatomegaly: false,
+    gallopRhythmOnAuscultation: false,
+    murmursAssociatedWithValvularHeartDisease: false,
     pedalAndAnkleOedema: false,
-    gallopRhythm: false,
     tachypnoea: false,
     ascites: false,
-    examinationCode: "", // Add this to store the examination code
+    examinationDate: "",
+    examinationCode: "", // Include examinationCode here
   });
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Debugging to see if examinationData is being received
+    console.log("Examination Data:", examinationData);
+
     if (examinationData) {
       setFormData({
-        ...examinationData,
-        examinationCode: examinationData.examinationCode, // Set the examination code from props
+        tachycardiaAtRest: examinationData?.tachycardiaAtRest || false,
+        hypotension: examinationData?.hypotension || false,
+        narrowPulsePressure: examinationData?.narrowPulsePressure || false,
+        raisedJugularVenousPressure:
+          examinationData?.raisedJugularVenousPressure || false,
+        displacedApexBeat: examinationData?.displacedApexBeat || false,
+        rightVentricularHeave: examinationData?.rightVentricularHeave || false,
+        pleuralEffusion: examinationData?.pleuralEffusion || false,
+        hepatomegaly: examinationData?.hepatomegaly || false,
+        gallopRhythmOnAuscultation:
+          examinationData?.gallopRhythmOnAuscultation || false,
+        murmursAssociatedWithValvularHeartDisease:
+          examinationData?.murmursAssociatedWithValvularHeartDisease || false,
+        pedalAndAnkleOedema: examinationData?.pedalAndAnkleOedema || false,
+        tachypnoea: examinationData?.tachypnoea || false,
+        ascites: examinationData?.ascites || false,
+        examinationDate: examinationData?.examinationDate || "",
+        examinationCode: examinationData?.examinationCode || "", // Add examinationCode here as well
       });
     }
   }, [examinationData]);
@@ -410,7 +71,14 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
     try {
       setLoading(true);
       setError(null);
-      await axiosClient.put(`/doctors/${patientId}/examines/${formData.examinationCode}`, formData);
+
+      // Debugging: Check formData values before submission
+      console.log("Submitting Form Data:", formData);
+
+      await axiosClient.put(
+        `/doctors/${patientId}/examines/${formData.examinationCode}`,
+        formData
+      );
       fetchData(); // Refresh the examination data
       onClose(); // Close the modal after successful submission
     } catch (err) {
@@ -426,6 +94,8 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
       <h2 className="text-lg font-bold mb-4">Update Examination Record</h2>
       {error && <p className="text-red-500 mb-2">{error}</p>}
       {loading && <p className="text-blue-500">Updating...</p>}
+
+      {/* Add input fields for each form field */}
       <div className="mb-4">
         <label>
           Tachycardia at Rest:
@@ -445,6 +115,18 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
             type="checkbox"
             name="hypotension"
             checked={formData.hypotension}
+            onChange={handleChange}
+            className="ml-2"
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label>
+          Narrow Pulse Pressure:
+          <input
+            type="checkbox"
+            name="narrowPulsePressure"
+            checked={formData.narrowPulsePressure}
             onChange={handleChange}
             className="ml-2"
           />
@@ -476,11 +158,11 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
       </div>
       <div className="mb-4">
         <label>
-          Pedal and Ankle Oedema:
+          Right Ventricular Heave:
           <input
             type="checkbox"
-            name="pedalAndAnkleOedema"
-            checked={formData.pedalAndAnkleOedema}
+            name="rightVentricularHeave"
+            checked={formData.rightVentricularHeave}
             onChange={handleChange}
             className="ml-2"
           />
@@ -488,11 +170,59 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
       </div>
       <div className="mb-4">
         <label>
-          Gallop Rhythm:
+          Pleural Effusion:
           <input
             type="checkbox"
-            name="gallopRhythm"
-            checked={formData.gallopRhythm}
+            name="pleuralEffusion"
+            checked={formData.pleuralEffusion}
+            onChange={handleChange}
+            className="ml-2"
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label>
+          Hepatomegaly:
+          <input
+            type="checkbox"
+            name="hepatomegaly"
+            checked={formData.hepatomegaly}
+            onChange={handleChange}
+            className="ml-2"
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label>
+          Gallop Rhythm on Auscultation:
+          <input
+            type="checkbox"
+            name="gallopRhythmOnAuscultation"
+            checked={formData.gallopRhythmOnAuscultation}
+            onChange={handleChange}
+            className="ml-2"
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label>
+          Murmurs Associated with Valvular Heart Disease:
+          <input
+            type="checkbox"
+            name="murmursAssociatedWithValvularHeartDisease"
+            checked={formData.murmursAssociatedWithValvularHeartDisease}
+            onChange={handleChange}
+            className="ml-2"
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label>
+          Pedal and Ankle Oedema:
+          <input
+            type="checkbox"
+            name="pedalAndAnkleOedema"
+            checked={formData.pedalAndAnkleOedema}
             onChange={handleChange}
             className="ml-2"
           />
@@ -522,6 +252,16 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
           />
         </label>
       </div>
+      <div className="mb-4 col-span-2">
+        <label className="block text-gray-700">Examination Date</label>
+        <input
+          type="date"
+          name="examinationDate"
+          value={formData.examinationDate}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
       <button
         type="submit"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -539,5 +279,28 @@ const DoctorExaminationUpdate = ({ patientId, examinationData, onClose, fetchDat
   );
 };
 
-export default DoctorExaminationUpdate;
+// Define PropTypes for the component
+DoctorExaminationUpdate.propTypes = {
+  patientId: PropTypes.string.isRequired,
+  examinationData: PropTypes.shape({
+    tachycardiaAtRest: PropTypes.bool,
+    hypotension: PropTypes.bool,
+    narrowPulsePressure: PropTypes.bool,
+    raisedJugularVenousPressure: PropTypes.bool,
+    displacedApexBeat: PropTypes.bool,
+    rightVentricularHeave: PropTypes.bool,
+    pleuralEffusion: PropTypes.bool,
+    hepatomegaly: PropTypes.bool,
+    gallopRhythmOnAuscultation: PropTypes.bool,
+    murmursAssociatedWithValvularHeartDisease: PropTypes.bool,
+    pedalAndAnkleOedema: PropTypes.bool,
+    tachypnoea: PropTypes.bool,
+    ascites: PropTypes.bool,
+    examinationDate: PropTypes.string,
+    examinationCode: PropTypes.string.isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  fetchData: PropTypes.func.isRequired,
+};
 
+export default DoctorExaminationUpdate;
