@@ -33,6 +33,7 @@ const ReadData = () => {
           font: {
             size: 14,
             weight: "bold",
+
           },
         },
       },
@@ -61,6 +62,7 @@ const ReadData = () => {
     animation: {
       duration: 2000,
       easing: "easeInOutBounce",
+
     },
   };
 
