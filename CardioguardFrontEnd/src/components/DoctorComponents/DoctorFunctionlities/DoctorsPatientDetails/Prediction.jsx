@@ -1,10 +1,10 @@
 import React from 'react'
-import MachineLearningData from '../../../MachineLerningDataForm'
+import MachineLearn from '../../../MachineLerningDataForm'
 
 const Prediction = () => {
   return (
     <div>
-      <MachineLearningData />
+      <MachineLearn/>
     </div>
   )
 }
