@@ -24,7 +24,7 @@ const DoctorMainLayout = () => {
     fetchDoctor();
   }, [user]);
 
-  // Safely check if the user is authenticated and has the "DOCTOR" role
+  //Safely check if the user is authenticated and has the "DOCTOR" role
   if (!token || !user || user.role !== "DOCTOR") {
     return <Navigate to="/login" />;
   }
