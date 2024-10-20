@@ -125,7 +125,7 @@ const ExaminationDataById = () => {
                       <td className="px-4 py-2 align-top">
                         {new Date(data.examinationDate).toLocaleDateString()}
                       </td>
-                      <td className="px-4 py-2 text-gray-700">
+                      <td className="px-4 py-2 text-gray-700 text-right">
                         {expandedRows[index] ? "Hide Details" : "Show Details"}
                       </td>
                     </tr>

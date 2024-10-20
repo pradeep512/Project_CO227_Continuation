@@ -58,7 +58,7 @@ const SearchPatients = () => {
           className="w-full px-4 py-2 border rounded-md mb-4"
         />
 
-        <div className="w-full mx-auto p-4 shadow-lg rounded-lg bg-white">
+        <div className="w-full mx-auto p-4 bg-white">
           {loading ? (
             <div className="flex justify-center">
               <svg

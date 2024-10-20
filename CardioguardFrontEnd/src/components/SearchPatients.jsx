@@ -55,7 +55,7 @@ const SearchPatients = ({ onSelectPatient }) => {
   };
 
   return (
-    <div className="w-full mx-auto p-4 shadow-lg rounded-lg bg-white">
+    <div className="w-full mx-auto p-4 bg-white">
       <div className="w-full">
         <h1 className="text-2xl font-bold p-2 mb-4">Patients</h1>
         <input
@@ -66,7 +66,7 @@ const SearchPatients = ({ onSelectPatient }) => {
           className="w-full px-4 py-2 border rounded-md mb-4"
         />
 
-        <div className="w-full mx-auto p-4 shadow-lg rounded-lg bg-white">
+        <div className="w-full mx-auto p-4 bg-white">
           {loading ? (
             <div className="flex justify-center">
               <svg
@@ -94,8 +94,8 @@ const SearchPatients = ({ onSelectPatient }) => {
             <p className="text-red-500">{error}</p>
           ) : (
             <div className="w-full overflow-x-auto">
-              <div className="max-h-96 overflow-y-auto">
-                <table className="min-w-full bg-white shadow-md rounded-lg table-auto">
+              <div className="max-h-[240px] overflow-y-auto">
+                <table className="min-w-full bg-white table-auto">
                   <thead>
                     <tr className="bg-gray-100">
                       <th className="px-4 py-2 text-left">Patient ID</th>

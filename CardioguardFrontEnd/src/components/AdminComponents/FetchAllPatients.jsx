@@ -156,8 +156,6 @@
 
 // export default FetchAllPatients;
 
-
-
 import { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client"; // Updated path for axiosClient
 import { useNavigate } from "react-router-dom";
@@ -228,7 +226,9 @@ const FetchAllPatients = () => {
     <div className="relative">
       {/* Flex container for title */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-red-600 text-center">Click the patient to delete or update</h1>
+        <h1 className="text-green-600 text-center">
+          Click the patient to delete or update
+        </h1>
       </div>
 
       {/* Display error message if any */}

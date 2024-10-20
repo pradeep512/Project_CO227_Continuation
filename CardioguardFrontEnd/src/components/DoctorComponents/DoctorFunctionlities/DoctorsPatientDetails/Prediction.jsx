@@ -1,12 +1,11 @@
-import React from 'react'
-import MachineLearn from '../../../MachineLerningDataForm'
+import MachineLearn from "../../../MachineLerningDataForm";
 
 const Prediction = () => {
   return (
     <div>
-      <MachineLearn/>
+      <MachineLearn />
     </div>
-  )
-}
+  );
+};
 
-export default Prediction
+export default Prediction;

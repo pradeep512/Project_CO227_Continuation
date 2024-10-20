@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import axiosClient from "../../../../../axios-client";
 import useStateContext from "../../../../contexts/useStateContext";
 
-const PatientContactInfo = () => {
+const PatientDoctorDetails = () => {
   const [patient, setPatient] = useState(null);
-  const [loading, setLoading] = useState(false); // Keep the loading state
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useStateContext();
 
@@ -37,37 +37,40 @@ const PatientContactInfo = () => {
     };
 
     fetchPatientDataById();
-  }, [patientId]); // Fetch data when patientId is loaded (which is hardcoded here)
+  }, [patientId]);
 
   return (
-    <div className="bg-white  p-6 w-full max-w-sm">
-      <h2 className="text-lg font-bold mb-4">Patient Info</h2>
-      {loading ? ( // Show loading message when loading is true
+    <div className="bg-white p-6 w-full max-w-2xl">
+      <h2 className="text-lg font-bold mb-4">Visited Doctors</h2>
+      {loading ? (
         <div className="text-center text-gray-500">Loading...</div>
       ) : patient ? (
-        <div>
-          {/* First Name */}
+        <div className="border-l pl-4">
+          {/* Doctors Table */}
           <div className="mb-4">
-            <p className="text-sm text-gray-500">First Name</p>
-            <p className="text-md font-medium">{patient.firstName || "N/A"}</p>
-          </div>
-
-          {/* Last Name */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-500">Last Name</p>
-            <p className="text-md font-medium">{patient.lastName || "N/A"}</p>
-          </div>
-
-          {/* NIC */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-500">NIC</p>
-            <p className="text-md font-medium">{patient.nic || "N/A"}</p>
-          </div>
-
-          {/* Email */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-500">Email</p>
-            <p className="text-md font-medium">{patient.email || "N/A"}</p>
+            {patient.visitedDoctorsForPatient &&
+            patient.visitedDoctorsForPatient.length > 0 ? (
+              <table className="min-w-full bg-white border">
+                <thead>
+                  <tr>
+                    <th className="py-2 px-4 border-b">Doctor ID</th>
+                    <th className="py-2 px-4 border-b">Surname</th>
+                    <th className="py-2 px-4 border-b">Last Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {patient.visitedDoctorsForPatient.map((doctor) => (
+                    <tr key={doctor.doctorId}>
+                      <td className="py-2 px-4 border-b">{doctor.doctorId}</td>
+                      <td className="py-2 px-4 border-b">{doctor.surname}</td>
+                      <td className="py-2 px-4 border-b">{doctor.lastName}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No doctors visited.</p>
+            )}
           </div>
         </div>
       ) : (
@@ -79,4 +82,4 @@ const PatientContactInfo = () => {
   );
 };
 
-export default PatientContactInfo;
+export default PatientDoctorDetails;
