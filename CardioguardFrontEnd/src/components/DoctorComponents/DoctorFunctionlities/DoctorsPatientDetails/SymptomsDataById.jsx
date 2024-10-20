@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import Modal from "./Modal"; // Adjust the path to your modal component
 import SymptomsUpdate from "./SymptomsUpdate"; // Import the update component
 import PatientSymptomsSubmission from "./PatientSymptomsSubmission"; // Import the add record component
-import ClinicalDataChart from "./ClinicalDataChart";
 
 const SymptomDataById = () => {
   const { patientId } = useParams();
@@ -133,10 +132,10 @@ const SymptomDataById = () => {
                       <td className="px-4 py-2">
                         {new Date(symptom.symptomDate).toLocaleDateString()}
                       </td>
-                      <td className="px-4 py-2 text-gray-700">
+                      <td className="px-4 py-2 text-gray-700  text-center">
                         {expandedRows[index] ? "Hide Details" : "Show Details"}
                       </td>
-                      <td className="px-4 py-2 text-gray-700">
+                      <td className="px-4 py-2 text-gray-700  text-center">
                         {symptom.doctorRecommendation || "N/A"}
                       </td>
                     </tr>
@@ -267,7 +266,6 @@ const SymptomDataById = () => {
           />
         )}
       </Modal>
-      <ClinicalDataChart patientId={patientId} />
     </div>
   );
 };

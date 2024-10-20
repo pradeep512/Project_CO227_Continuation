@@ -1,16 +1,20 @@
-import React from 'react';
 import SymptomDataById from "./SymptomsDataById";
 import ClinicalDataById from "./ClinicalDataById";
 import ExaminationDataById from "./ExaminationDataById";
+// import ClinicalDataChart from "./ClinicalDataChart";
+// import useStateContext from "../../../../contexts/useStateContext";
 
-const MedicalInfo = ({ patientId }) => {
+const MedicalInfo = () => {
+  // const { user } = useStateContext();
+  // const patientId = user.patientId;
+
   return (
     <div className="mb-4">
       <SymptomDataById />
-      <div className="flex w-full">
-        <ClinicalDataById />
-        <ExaminationDataById />
-      </div>
+      <ExaminationDataById />
+      <ClinicalDataById />
+
+      {/* <ClinicalDataChart patientId={patientId} /> */}
     </div>
   );
 };

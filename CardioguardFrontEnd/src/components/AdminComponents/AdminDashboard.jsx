@@ -62,14 +62,6 @@ const AdminDashboard = () => {
           <p>Total Doctors</p>
           <h3 className="text-2xl">{data.totalDoctors}</h3>
         </div>
-        <div className="bg-white p-6 shadow-lg rounded">
-          <p>Appointments</p>
-          <h3 className="text-2xl">{data.appointments}</h3>
-        </div>
-        <div className="bg-white p-6 shadow-lg rounded">
-          <p>Total Invoice</p>
-          <h3 className="text-2xl">{data.totalInvoice}</h3>
-        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-6">
@@ -80,7 +72,7 @@ const AdminDashboard = () => {
           <RevenueChart />
         </div>
       </div>
-      <div className="flex item-center justify-center space-x-4">
+      <div className="flex w-full item-center justify-center space-x-4">
         <SearchPatients />
         <SearchDoctors />
       </div>

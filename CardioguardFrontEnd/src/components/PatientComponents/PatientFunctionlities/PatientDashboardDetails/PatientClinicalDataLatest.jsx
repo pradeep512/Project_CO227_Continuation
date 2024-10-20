@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import axiosClient from "../../../axios-client";
+import axiosClient from "../../../../../axios-client";
 import {
   FaHeartbeat,
   FaDiagnoses,
@@ -9,6 +8,7 @@ import {
   FaTint,
   FaChartLine,
 } from "react-icons/fa"; // Import relevant icons
+import PropTypes from "prop-types";
 
 const PatientClinicalDataById = ({ patientId }) => {
   const [clinicalData, setClinicalData] = useState(null);
@@ -19,18 +19,24 @@ const PatientClinicalDataById = ({ patientId }) => {
     try {
       setLoading(true);
       setError(null);
-      setClinicalData([]);
+      setClinicalData(null);
 
       // Fetch clinical data
       const clinicalDataResponse = await axiosClient.get(
         `/doctors/patients/${patientId}/clinical-data`
       );
 
-      console.log(clinicalDataResponse.data); // To check the structure
-
       if (clinicalDataResponse.data && clinicalDataResponse.data.length > 0) {
-        // Since it's an array, grab the first element
-        setClinicalData(clinicalDataResponse.data[0]);
+        // Find the latest clinical data entry by clinicalDataId
+        const latestClinicalData = clinicalDataResponse.data.reduce(
+          (prev, current) => {
+            return prev.clinicalDataId > current.clinicalDataId
+              ? prev
+              : current;
+          }
+        );
+
+        setClinicalData(latestClinicalData);
       } else {
         setError("No clinical data found.");
       }
@@ -47,12 +53,12 @@ const PatientClinicalDataById = ({ patientId }) => {
   useEffect(() => {
     // Automatically fetch data on component load
     fetchClinicalData();
-  }, []); // Empty dependency array to only run once when the component mounts
+  }, [patientId]); // Fetch data again if patientId changes
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-5xl">
       <h1 className="text-2xl font-bold text-center mb-6">
-        Patient Clinical Data
+        Latest Clinical Data
       </h1>
 
       {/* Error message */}
@@ -137,16 +143,21 @@ const PatientClinicalDataById = ({ patientId }) => {
                 color: "text-gray-700",
                 icon: <FaChartLine className="text-blue-500 mr-4" size={40} />,
               },
+              {
+                label: "Clinical Date", // Adding clinical date field
+                value: new Date(clinicalData.clinicalDate).toLocaleDateString(),
+                color: "text-gray-700",
+                icon: <FaChartLine className="text-blue-500 mr-4" size={40} />,
+              },
             ].map((data, index) => (
               <div
                 key={index}
-                className="flex items-center bg-blue-100 p-4 rounded-lg h-28" // Ensuring equal height for all boxes
+                className="flex items-center bg-blue-100 p-4 rounded-lg h-28"
               >
                 {data.icon}
                 <div>
                   <p className="text-sm font-medium">{data.label}</p>
-                  <p className={`text-lg ${data.color}`}>{data.value}</p>{" "}
-                  {/* Color based on value */}
+                  <p className={`text-lg ${data.color}`}>{data.value}</p>
                 </div>
               </div>
             ))}
@@ -163,7 +174,7 @@ const PatientClinicalDataById = ({ patientId }) => {
 };
 
 PatientClinicalDataById.propTypes = {
-  patientId: PropTypes.number.isRequired,
+  patientId: PropTypes.number.isRequired, // Validate that patientId is a required number
 };
 
 export default PatientClinicalDataById;

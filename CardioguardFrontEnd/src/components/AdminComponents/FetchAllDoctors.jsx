@@ -1,11 +1,8 @@
-
 import { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client"; // Updated path for axiosClient
-import { useNavigate } from "react-router-dom";
 import CreateDoctorForm from "../AdminComponents/AddingDoctor"; // Adjust the import path as needed
 import AdminUpdateDoctor from "../AdminComponents/AdminUpdateDoctor"; // Import the AdminUpdateDoctor component
 import RegisterPatientToDoctor from "../RegisterPatientsForDoctor";
-import DoctorPatients from "../GetRegisteredPatientsForDoctor";
 
 const FetchAllDoctors = () => {
   const [doctors, setDoctors] = useState([]);
@@ -16,7 +13,6 @@ const FetchAllDoctors = () => {
   const [showAddModal, setShowAddModal] = useState(false); // State for Add modal visibility
   const [showUpdateModal, setShowUpdateModal] = useState(false); // State for Update modal visibility
   const [selectedDoctorId, setSelectedDoctorId] = useState(null); // Store selected doctor ID
-  const navigate = useNavigate();
 
   // Function to fetch all doctors
   const fetchAllDoctors = async () => {
@@ -54,7 +50,7 @@ const FetchAllDoctors = () => {
       // Make DELETE request to the API
       await axiosClient.delete(`/admin/delete/doctor/${doctorId}`); // Adjust the API endpoint as needed
       // Filter out the deleted doctor from the state
-      setDoctors(doctors.filter(doctor => doctor.doctorId !== doctorId));
+      setDoctors(doctors.filter((doctor) => doctor.doctorId !== doctorId));
       console.log(`Doctor with ID ${doctorId} deleted successfully.`);
     } catch (err) {
       console.error("Error deleting doctor:", err);
@@ -106,7 +102,11 @@ const FetchAllDoctors = () => {
   return (
     <div className="relative">
       {/* Blur Background Wrapper */}
-      <div className={`transition duration-300 ${showAddModal || showUpdateModal ? 'blur-md' : ''}`}>
+      <div
+        className={`transition duration-300 ${
+          showAddModal || showUpdateModal ? "blur-md" : ""
+        }`}
+      >
         {/* Flex container for title and Add Doctor button */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-red-600">Doctors List</h1>
@@ -208,7 +208,9 @@ const FetchAllDoctors = () => {
       {/* Modal for Add Doctor */}
       {showAddModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="relative w-full max-w-md bg-white p-6 rounded-lg shadow-lg"> {/* Adjust styling here */}
+          <div className="relative w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+            {" "}
+            {/* Adjust styling here */}
             <CreateDoctorForm />
             <button
               onClick={handleCloseAddModal}
@@ -223,8 +225,13 @@ const FetchAllDoctors = () => {
       {/* Modal for Update Doctor */}
       {showUpdateModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="relative w-full max-w-md bg-white p-6 rounded-lg shadow-lg"> {/* Adjust styling here */}
-            <AdminUpdateDoctor doctorId={selectedDoctorId} onComplete={handleCloseUpdateModal} />
+          <div className="relative w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+            {" "}
+            {/* Adjust styling here */}
+            <AdminUpdateDoctor
+              doctorId={selectedDoctorId}
+              onComplete={handleCloseUpdateModal}
+            />
             <button
               onClick={handleCloseUpdateModal}
               className="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full px-2 py-1"
@@ -242,6 +249,3 @@ const FetchAllDoctors = () => {
 };
 
 export default FetchAllDoctors;
-
-
-

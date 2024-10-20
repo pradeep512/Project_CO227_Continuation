@@ -55,7 +55,7 @@ const SearchDoctors = ({ onSelectDoctor }) => {
   };
 
   return (
-    <div className="w-full mx-auto p-4 shadow-lg rounded-lg bg-white">
+    <div className="w-full mx-auto p-4 bg-white">
       <div className="w-full">
         <h1 className="text-2xl font-bold p-4">Doctors</h1>
         <input
@@ -65,7 +65,7 @@ const SearchDoctors = ({ onSelectDoctor }) => {
           onChange={handleSearch}
           className="w-full px-4 py-2 border rounded-md mb-4"
         />
-        <div className="w-full mx-auto p-4 shadow-lg rounded-lg bg-white">
+        <div className="w-full mx-auto p-4  bg-white">
           {loading ? (
             <div className="flex justify-center">
               <svg
@@ -93,7 +93,7 @@ const SearchDoctors = ({ onSelectDoctor }) => {
             <p className="text-red-500">{error}</p>
           ) : (
             <div className="w-full overflow-x-auto">
-              <div className="max-h-96 overflow-y-auto">
+              <div className="max-h-[240px] overflow-y-auto">
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                   <thead>
                     <tr className="bg-gray-100">

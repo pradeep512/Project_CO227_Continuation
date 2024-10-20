@@ -55,7 +55,7 @@ const PatientGeneralInfo = () => {
   }, [patientId]); // Fetch data when patientId is loaded (which is hardcoded here)
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
+    <div className="bg-white p-6 w-full max-w-2xl">
       <h2 className="text-lg font-bold mb-4">General Info</h2>
       {loading ? ( // Show loading message if loading is true
         <div className="text-center text-gray-500">Loading...</div>

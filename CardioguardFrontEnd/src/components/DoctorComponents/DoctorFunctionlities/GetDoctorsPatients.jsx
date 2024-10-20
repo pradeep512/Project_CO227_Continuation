@@ -19,7 +19,12 @@ const GetDoctorsPatients = () => {
           `/doctors/patients/bulk/${doctor_id}`
         );
         if (response.data) {
-          setPatients(response.data);
+          // Sort patients by firstName in ascending order
+          const sortedPatients = response.data.sort(
+            (a, b) => a.patientId - b.patientId
+          );
+
+          setPatients(sortedPatients);
         } else {
           setError("Failed to fetch patients data.");
         }
@@ -39,11 +44,13 @@ const GetDoctorsPatients = () => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full mt-8 ">
-      <h1 className="text-2xl font-bold text-left mb-12">
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full mt-8">
+      <h1 className="text-2xl font-bold text-center mb-6">
         Patients Registered to Doctor
       </h1>
-
+      <span className="text-md font-sans text-green-500">
+        click to see details
+      </span>
       {loading ? (
         <div className="flex justify-center">
           <svg

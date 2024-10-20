@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axiosClient from "../../../axios-client"; // Ensure the correct path for axiosClient
+import axiosClient from "../../../../../axios-client";
 import {
   FaHeartbeat,
   FaLungs,
@@ -11,7 +11,7 @@ import {
 import PropTypes from "prop-types";
 
 const PatientExaminationDataById = ({ patientId }) => {
-  const [clinicalData, setClinicalData] = useState([]);
+  const [clinicalData, setClinicalData] = useState(null); // Single object now
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -19,15 +19,22 @@ const PatientExaminationDataById = ({ patientId }) => {
     try {
       setLoading(true);
       setError(null);
-      setClinicalData([]);
+      setClinicalData(null);
 
       // Fetch clinical data
       const clinicalDataResponse = await axiosClient.get(
         `/doctors/${patientId}/examines`
       );
 
-      if (clinicalDataResponse.data) {
-        setClinicalData(clinicalDataResponse.data);
+      if (clinicalDataResponse.data && clinicalDataResponse.data.length > 0) {
+        // Find the latest examination entry by examinationCode
+        const latestData = clinicalDataResponse.data.reduce((prev, current) => {
+          return prev.examinationCode > current.examinationCode
+            ? prev
+            : current;
+        });
+
+        setClinicalData(latestData);
       } else {
         setError("No clinical data found.");
       }
@@ -44,32 +51,34 @@ const PatientExaminationDataById = ({ patientId }) => {
   useEffect(() => {
     // Automatically fetch data on component load
     fetchClinicalData();
-  }, []); // Empty dependency array to only run once when the component mounts
+  }, [patientId]); // Added patientId as dependency to refetch if patientId changes
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-5xl">
-      <h1 className="text-2xl font-bold text-center mb-6">Examination Data</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">
+        Latest Examination Data
+      </h1>
 
       {/* Error message */}
       {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
       {/* Display clinical data */}
-      {clinicalData.length > 0 && (
+      {clinicalData && (
         <div className="bg-gray-50 rounded-md p-4">
           <div className="grid grid-cols-3 gap-4">
             {[
               {
                 label: "Tachycardia at Rest",
-                value: clinicalData[0].tachycardiaAtrest ? "Yes" : "No",
-                color: clinicalData[0].tachycardiaAtrest
+                value: clinicalData.tachycardiaAtrest ? "Yes" : "No",
+                color: clinicalData.tachycardiaAtrest
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaHeartbeat className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Hypotension",
-                value: clinicalData[0].hypotention ? "Yes" : "No",
-                color: clinicalData[0].hypotention
+                value: clinicalData.hypotention ? "Yes" : "No",
+                color: clinicalData.hypotention
                   ? "text-green-500"
                   : "text-red-500",
                 icon: (
@@ -78,52 +87,48 @@ const PatientExaminationDataById = ({ patientId }) => {
               },
               {
                 label: "Raised Jugular Venous Pressure",
-                value: clinicalData[0].raisedJugularVenousPressure
-                  ? "Yes"
-                  : "No",
-                color: clinicalData[0].raisedJugularVenousPressure
+                value: clinicalData.raisedJugularVenousPressure ? "Yes" : "No",
+                color: clinicalData.raisedJugularVenousPressure
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaArrowUp className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Displaced Apex Beat",
-                value: clinicalData[0].displacedApexBeat ? "Yes" : "No",
-                color: clinicalData[0].displacedApexBeat
+                value: clinicalData.displacedApexBeat ? "Yes" : "No",
+                color: clinicalData.displacedApexBeat
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaHeartbeat className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Right Ventricular Heave",
-                value: clinicalData[0].rightVenticularHeave ? "Yes" : "No",
-                color: clinicalData[0].rightVenticularHeave
+                value: clinicalData.rightVenticularHeave ? "Yes" : "No",
+                color: clinicalData.rightVenticularHeave
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaLungs className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Pleural Effusion",
-                value: clinicalData[0].pleuralEffusion ? "Yes" : "No",
-                color: clinicalData[0].pleuralEffusion
+                value: clinicalData.pleuralEffusion ? "Yes" : "No",
+                color: clinicalData.pleuralEffusion
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaLungs className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Hepatomegaly",
-                value: clinicalData[0].hepatomegaly ? "Yes" : "No",
-                color: clinicalData[0].hepatomegaly
+                value: clinicalData.hepatomegaly ? "Yes" : "No",
+                color: clinicalData.hepatomegaly
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaTint className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Gallop Rhythm on Auscultation",
-                value: clinicalData[0].gallopRhythmOnAuscultation
-                  ? "Yes"
-                  : "No",
-                color: clinicalData[0].gallopRhythmOnAuscultation
+                value: clinicalData.gallopRhythmOnAuscultation ? "Yes" : "No",
+                color: clinicalData.gallopRhythmOnAuscultation
                   ? "text-green-500"
                   : "text-red-500",
                 icon: (
@@ -132,34 +137,30 @@ const PatientExaminationDataById = ({ patientId }) => {
               },
               {
                 label: "Pedal and Ankle Oedema",
-                value: clinicalData[0].pedalAndAnkleOedema ? "Yes" : "No",
-                color: clinicalData[0].pedalAndAnkleOedema
+                value: clinicalData.pedalAndAnkleOedema ? "Yes" : "No",
+                color: clinicalData.pedalAndAnkleOedema
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaRuler className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Tachypnoea",
-                value: clinicalData[0].tachypnoea ? "Yes" : "No",
-                color: clinicalData[0].tachypnoea
+                value: clinicalData.tachypnoea ? "Yes" : "No",
+                color: clinicalData.tachypnoea
                   ? "text-green-500"
                   : "text-red-500",
                 icon: <FaLungs className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Ascites",
-                value: clinicalData[0].ascites ? "Yes" : "No",
-                color: clinicalData[0].ascites
-                  ? "text-green-500"
-                  : "text-red-500",
+                value: clinicalData.ascites ? "Yes" : "No",
+                color: clinicalData.ascites ? "text-green-500" : "text-red-500",
                 icon: <FaTint className="text-blue-500 mr-4" size={40} />,
               },
               {
                 label: "Examination Date",
-                value: clinicalData[0].examinationDate
-                  ? new Date(
-                      clinicalData[0].examinationDate
-                    ).toLocaleDateString()
+                value: clinicalData.examinationDate
+                  ? new Date(clinicalData.examinationDate).toLocaleDateString()
                   : "N/A",
                 color: "text-gray-700",
                 icon: (
@@ -183,7 +184,7 @@ const PatientExaminationDataById = ({ patientId }) => {
       )}
 
       {/* No data message */}
-      {!clinicalData.length && !loading && !error && (
+      {!clinicalData && !loading && !error && (
         <p className="text-gray-600 text-center">
           No examination data available.
         </p>
