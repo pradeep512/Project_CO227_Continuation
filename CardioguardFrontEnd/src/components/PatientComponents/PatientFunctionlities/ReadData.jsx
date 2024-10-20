@@ -111,8 +111,7 @@ const ReadData = () => {
             <strong>Diagnosis of Heart Disease:</strong>{" "}
           </p>
           <p style={{ color: "#666" }}>
-            Indicates a heart condition diagnosis which impacts overall health
-            management.
+          A range of conditions affecting the heart, like coronary artery disease or arrhythmias. Diagnosed through tests like ECGs, blood tests, and stress tests. Common risk factors include high blood pressure and cholesterol.
           </p>
         </div>
         <div
@@ -131,8 +130,7 @@ const ReadData = () => {
             <strong>Presence of Anemia:</strong>{" "}
           </p>
           <p style={{ color: "#666" }}>
-            The patient does not show signs of anemia, which affects oxygen
-            transport in the body.
+          A condition with low red blood cells or hemoglobin, leading to reduced oxygen delivery in the body. Diagnosed through blood tests, it causes fatigue and weakness. Common causes include iron deficiency and chronic disease.
           </p>
         </div>
         <div
@@ -151,8 +149,7 @@ const ReadData = () => {
             <strong>Diabetes:</strong>{" "}
           </p>
           <p style={{ color: "#666" }}>
-            The patient has diabetes, a condition that requires careful blood
-            sugar management.
+          A condition with high blood sugar levels, mainly Type 1 (insufficient insulin) or Type 2 (insulin resistance). Diagnosed through blood tests like HbA1c. Symptoms include thirst, frequent urination, and weight loss.
           </p>
         </div>
       </div>
