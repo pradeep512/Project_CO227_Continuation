@@ -163,6 +163,9 @@
 //   );
 // }
 
+
+
+
 import axiosClient from "../../axios-client"; // Adjust the import based on your project structure
 import { useNavigate, useLocation, Link } from "react-router-dom"; // Import useNavigate and useLocation
 import { useState } from "react";
@@ -350,7 +353,7 @@ export default function RegisterUser() {
             )}
           </div>
 
-          <div className="flex items-center">
+          <div className="flex justify-center items-center">
             <input
               type="checkbox"
               name="remember"
@@ -380,9 +383,12 @@ export default function RegisterUser() {
           </div>
 
           <div className="flex justify-between">
-            {/* <Link to="#" className="text-sm text-indigo-600 hover:underline">
-              Forgot password?
-            </Link> */}
+            <Link
+              to="/terms"
+              className="text-sm text-indigo-600 hover:underline"
+            >
+              Terms and Conditions
+            </Link>
             <Link
               to="/login"
               className="text-sm text-indigo-600 hover:underline"
