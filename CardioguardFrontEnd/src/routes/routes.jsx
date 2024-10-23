@@ -25,6 +25,7 @@ import PatientDashboard from "../components/PatientComponents/PatientDashborad";
 import PatientMedicalInfo from "../components/PatientComponents/PatientFunctionlities/PatientDashboardDetails/PatientMedicalInfo";
 import Prediction from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/Prediction";
 import ReadData from "../components/PatientComponents/PatientFunctionlities/ReadData";
+import TermsAndConditions from "../components/TermsAndConditions";
 
 
 const AppRoutes = createBrowserRouter([
@@ -107,6 +108,7 @@ const AppRoutes = createBrowserRouter([
   { path: "/admin-dashboard", element: <AdminDashboard /> }, // Admin dashboard standalone route
   { path: "/patient-dashboard", element: <PatientDashboard /> }, // Patient dashboard standalone route
   { path: "/tests2", element: <Tests /> }, // Testing page route
+  { path: "/terms", element: <TermsAndConditions /> },
 ]);
 
 export default AppRoutes;
