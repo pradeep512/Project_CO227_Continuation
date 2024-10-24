@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axiosClient from "../../../../../axios-client"; // Adjust the path accordingly
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import axiosClient from "../../../../../axios-client";
 
 const PatientSymptomsSubmission = ({ patientId, onClose }) => {
   const [formData, setFormData] = useState({
@@ -10,10 +10,8 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
     paroxysmalNocturnalDyspnoea: false,
     fatigue: false,
     doctorRecommendation: "",
-    symptomDate: "", // Added symptomDate field
+    symptomDate: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, type, checked } = event.target;
@@ -29,23 +27,24 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
     console.log("Patient ID:", patientId);
 
     try {
-      // Format the formData object to match the expected structure
       const formattedData = {
         ...formData,
-        symptomDate: new Date(formData.symptomDate).toISOString(), // Ensure proper date formatting
+        symptomDate: new Date(formData.symptomDate).toISOString(),
       };
 
-      await axiosClient.post(`doctors/patients/${patientId}/symptoms`, formattedData);
+      await axiosClient.post(
+        `doctors/patients/${patientId}/symptoms`,
+        formattedData
+      );
       console.log("Submission successful, navigating to the previous page.");
-      onClose(); // Close the modal
-      //navigate(-1); // Navigate to the previous page
+      onClose();
     } catch (error) {
       console.error("There was an error with the submission:", error);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-green-300">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
         <h1 className="text-2xl font-bold text-center mb-6">
           Patient Symptoms Submission Form
@@ -61,7 +60,10 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
               onChange={handleChange}
               className="cursor-pointer"
             />
-            <label htmlFor="bilateralLowerLimbSwelling" className="text-gray-700">
+            <label
+              htmlFor="bilateralLowerLimbSwelling"
+              className="text-gray-700"
+            >
               Bilateral Lower Limb Swelling
             </label>
           </div>
@@ -103,7 +105,10 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
               onChange={handleChange}
               className="cursor-pointer"
             />
-            <label htmlFor="paroxysmalNocturnalDyspnoea" className="text-gray-700">
+            <label
+              htmlFor="paroxysmalNocturnalDyspnoea"
+              className="text-gray-700"
+            >
               Paroxysmal Nocturnal Dyspnoea
             </label>
           </div>
@@ -160,6 +165,11 @@ const PatientSymptomsSubmission = ({ patientId, onClose }) => {
       </div>
     </div>
   );
+};
+
+PatientSymptomsSubmission.propTypes = {
+  patientId: PropTypes.any.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default PatientSymptomsSubmission;

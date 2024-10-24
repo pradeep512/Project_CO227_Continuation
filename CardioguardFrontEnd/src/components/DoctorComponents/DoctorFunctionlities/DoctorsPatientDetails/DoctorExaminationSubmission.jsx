@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axiosClient from "../../../../../axios-client"; // Adjust the path accordingly
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import axiosClient from "../../../../../axios-client";
 
 const DoctorExaminationSubmission = ({ patientId, onClose }) => {
   const [formData, setFormData] = useState({
@@ -12,10 +12,8 @@ const DoctorExaminationSubmission = ({ patientId, onClose }) => {
     gallopRhythm: false,
     tachypnoea: false,
     ascites: false,
-    examinationDate: "", // Added examinationDate field
+    examinationDate: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, type, checked } = event.target;
@@ -30,23 +28,21 @@ const DoctorExaminationSubmission = ({ patientId, onClose }) => {
     console.log("Doctor examination details submitted:", formData);
 
     try {
-      // Format the formData object to match the expected structure
       const formattedData = {
         ...formData,
-        examinationDate: new Date(formData.examinationDate).toISOString(), // Ensure proper date formatting
+        examinationDate: new Date(formData.examinationDate).toISOString(),
       };
 
       await axiosClient.post(`/doctors/${patientId}/examines`, formattedData);
       console.log("Submission successful, navigating to the previous page.");
       onClose(); // Close the modal
-      //navigate(-1); // Navigate to the previous page
     } catch (error) {
       console.error("There was an error with the submission:", error);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 to-orange-300">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
         <h1 className="text-2xl font-bold text-center mb-6">
           Doctor Examination Submission Form
@@ -90,7 +86,10 @@ const DoctorExaminationSubmission = ({ patientId, onClose }) => {
               onChange={handleChange}
               className="cursor-pointer"
             />
-            <label htmlFor="raisedJugularVenousPressure" className="text-gray-700">
+            <label
+              htmlFor="raisedJugularVenousPressure"
+              className="text-gray-700"
+            >
               Raised Jugular Venous Pressure
             </label>
           </div>
@@ -189,6 +188,11 @@ const DoctorExaminationSubmission = ({ patientId, onClose }) => {
       </div>
     </div>
   );
+};
+
+DoctorExaminationSubmission.propTypes = {
+  patientId: PropTypes.any.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default DoctorExaminationSubmission;

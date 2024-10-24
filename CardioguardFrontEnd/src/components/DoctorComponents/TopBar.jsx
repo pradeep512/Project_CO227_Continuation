@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types"; // Import PropTypes
+import { useNavigate } from "react-router-dom";
 
 const getRandomGrey = () => {
   const greys = ["#d3d3d3", "#a9a9a9", "#808080", "#696969", "#505050"];
@@ -8,6 +9,7 @@ const getRandomGrey = () => {
 
 const TopBar = ({ doctorName, handleLogout }) => {
   const [avatarColor, setAvatarColor] = useState("#d3d3d3");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setAvatarColor(getRandomGrey());
@@ -22,24 +24,16 @@ const TopBar = ({ doctorName, handleLogout }) => {
       className="bg-white p-4 shadow-md flex justify-between items-center"
       style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
     >
-      <div className="flex items-center">
-        <input
-          type="text"
-          placeholder="Search"
-          className="px-4 py-2 border rounded-md shadow-sm"
-          style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
-        />
-      </div>
+      {/* Home Button on the left */}
+      <button
+        className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-600"
+        style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
+        onClick={() => navigate("/")} // Use navigate to go to the home page
+      >
+        Home
+      </button>
 
       <div className="flex items-center space-x-4">
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-600"
-          style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
-          onClick={() => (window.location.href = "\\")}
-        >
-          Home
-        </button>
-
         <button
           className="bg-red-500 text-white py-2 px-4 rounded-md shadow-lg hover:bg-red-600"
           style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}

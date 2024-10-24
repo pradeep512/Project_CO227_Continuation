@@ -52,29 +52,35 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="grid grid-cols-4 gap-6">
-        <div className="bg-white p-6 shadow-lg rounded">
-          <p>Total Patients</p>
-          <h3 className="text-2xl">{data.totalPatients}</h3>
+    <div className="flex flex-col items-center justify-center">
+      <span className="text-3xl text-center font-bold text-blue-500 mb-4">
+        {" "}
+        Admin Dashboard
+      </span>
+      <div className="p-6 space-y-6">
+        <div className="grid grid-cols-2 gap-6">
+          <div className="flex flex-col items-center bg-white p-6 shadow-lg rounded-lg">
+            <p className="text-3xl">Total Patients</p>
+            <h3 className="text-3xl text-blue-400">{data.totalPatients}</h3>
+          </div>
+          <div className="flex flex-col items-center bg-white p-6 shadow-lg rounded-lg">
+            <p className="text-3xl">Total Doctors</p>
+            <h3 className="text-3xl text-blue-400">{data.totalDoctors}</h3>
+          </div>
         </div>
-        <div className="bg-white p-6 shadow-lg rounded">
-          <p>Total Doctors</p>
-          <h3 className="text-2xl">{data.totalDoctors}</h3>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-2 gap-6">
-        <div className="bg-white p-6 shadow-lg rounded">
-          <PatientOverviewChart />
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-white p-6 shadow-lg rounded">
+            <PatientOverviewChart />
+          </div>
+          <div className="bg-white p-6 shadow-lg rounded">
+            <RevenueChart />
+          </div>
         </div>
-        <div className="bg-white p-6 shadow-lg rounded">
-          <RevenueChart />
+        <div className="flex w-full item-center justify-center space-x-4">
+          <SearchPatients />
+          <SearchDoctors />
         </div>
-      </div>
-      <div className="flex w-full item-center justify-center space-x-4">
-        <SearchPatients />
-        <SearchDoctors />
       </div>
     </div>
   );
