@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,41 +70,48 @@ public class AuthenticationController {
         UserEntity user = userRepository.findByUsername(loginDTO.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User does not exist!"));
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtGenerator.generateToken(authentication);
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtGenerator.generateToken(authentication);
 
-        List<String> roles = user.getRoles().stream().map(Role::getName).toList();
+            List<String> roles = user.getRoles().stream().map(Role::getName).toList();
 
-        // Create the userRoles list
-        List<Map<String, Object>> userRoles = user.getRoles().stream().map(role -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("user", user.getId());
-            map.put("role", role.getName());
+            // Create the userRoles list
+            List<Map<String, Object>> userRoles = user.getRoles().stream().map(role -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("user", user.getId());
+                map.put("role", role.getName());
 
-            // Initialize patientId and doctorId as null
-            Long patientId = null;
-            Long doctorId = null;
+                // Initialize patientId and doctorId as null
+                Long patientId = null;
+                Long doctorId = null;
 
-            // Check role and set patientId or doctorId
-            if ("USER".equals(role.getName())) {
-                // Get patientId using getPatientByUserId in UserService
-                patientId = userService.getPatientByUserId(user.getId());
-            } else if ("DOCTOR".equals(role.getName())) {
-                // Get doctorId using getDoctorByUserId in UserService
-                doctorId = userService.getDoctorByUserId(user.getId());
-            }
+                // Check role and set patientId or doctorId
+                if ("USER".equals(role.getName())) {
+                    // Get patientId using getPatientByUserId in UserService
+                    patientId = userService.getPatientByUserId(user.getId());
+                } else if ("DOCTOR".equals(role.getName())) {
+                    // Get doctorId using getDoctorByUserId in UserService
+                    doctorId = userService.getDoctorByUserId(user.getId());
+                }
 
-            // Add patientId and doctorId to the map
-            map.put("patientId", patientId);
-            map.put("doctorId", doctorId);
+                // Add patientId and doctorId to the map
+                map.put("patientId", patientId);
+                map.put("doctorId", doctorId);
 
-            return map;
-        }).toList();
+                return map;
+            }).toList();
 
-        return new ResponseEntity<>(new AuthenticationResponseDTO(token, (long) user.getId(), roles, userRoles), HttpStatus.OK);
+            return new ResponseEntity<>(new AuthenticationResponseDTO(token, (long) user.getId(), roles, userRoles), HttpStatus.OK);
+
+        } catch (AuthenticationException e) {
+            // Return unauthorized status if authentication fails
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+        }
     }
+
 
 
     @PostMapping("register/patient/{patientId}")
