@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axiosClient from "../../axios-client";
 import useStateContext from "../contexts/useStateContext";
+import MachineLearningData from "./DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/MachineLearningData";
 
 const MachineLearn = () => {
   const [patients, setPatients] = useState([]);
@@ -114,16 +115,10 @@ const MachineLearn = () => {
           )}
         </>
       ) : (
-        <MachineLearningData patientId={selectedPatientId} />
+        <MachineLearningData />
       )}
     </div>
   );
-};
-
-const MachineLearningData = ({ patientId }) => {
-  // Machine learning form and submission logic goes here
-  // (The form submission logic remains unchanged)
-  return <div>Machine Learning Data for Patient {patientId}</div>;
 };
 
 export default MachineLearn;
