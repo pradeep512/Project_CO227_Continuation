@@ -79,10 +79,16 @@ export default function LoginPage() {
           break;
       }
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setGeneralError("Invalid username or password. Please try again.");
-      } else if (error.response && error.response.status === 500) {
-        setGeneralError("Server error. Please try again later.");
+      if (error.response) {
+        if (error.response.status === 401) {
+          setGeneralError("Invalid username or password. Please try again.");
+        } else if (error.response.status === 404) {
+          setGeneralError("Invalid username or password. Please try again.");
+        } else if (error.response.status === 500) {
+          setGeneralError("Server error. Please try again later.");
+        } else {
+          setGeneralError("An unexpected error occurred. Please try again.");
+        }
       } else {
         setGeneralError("An unexpected error occurred. Please try again.");
       }

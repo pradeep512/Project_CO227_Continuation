@@ -105,7 +105,7 @@ const SearchDoctors = ({ onSelectDoctor }) => {
                     {filteredDoctors.map((doctor) => (
                       <tr
                         key={doctor.doctorId}
-                        className="hover:bg-gray-50 cursor-pointer"
+                        className="hover:bg-gray-100 cursor-pointer"
                         onClick={() => handleRowClick(doctor)}
                       >
                         <td className="border-t px-4 py-2">

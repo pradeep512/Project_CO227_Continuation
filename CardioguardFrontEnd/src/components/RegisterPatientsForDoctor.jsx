@@ -49,38 +49,38 @@ const RegisterPatientToDoctor = () => {
   };
 
   return (
-    <div className="flex flex-col w-full items-center bg-white shadow-lg rounded-lg p-6 mx-auto mt-8 ">
+    <div className="flex flex-col w-full items-center bg-white shadow-lg rounded-lg p-6 mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-4">Register Patient to Doctor</h1>
 
       <div className="flex flex-row gap-4 w-full mb-6">
         {/* Doctor search section */}
-        <div className="flex-1">
+        <div className="flex-1 text-center">
           <h2 className="text-lg text-blue-400 font-semibold text-left mt-4 pl-4">
             Select Doctor:
           </h2>
           <SearchDoctors onSelectDoctor={handleDoctorSelect} />
-          <input
-            type="text"
-            value={selectedDoctorId}
-            disabled
-            placeholder="Selected Doctor ID"
-            className="w-full mt-4 p-2 border rounded-md"
-          />
+          {selectedDoctorId ? (
+            <p className="mt-4 text-blue-600 font-medium">
+              Doctor : {selectedDoctorId} selected
+            </p>
+          ) : (
+            <p className="mt-4 text-gray-600">No doctor selected</p>
+          )}
         </div>
 
         {/* Patient search section */}
-        <div className="flex-1">
+        <div className="flex-1 text-center">
           <h2 className="text-lg text-blue-400 font-semibold text-left mt-4 pl-4">
             Select Patient:
           </h2>
           <SearchPatients onSelectPatient={handlePatientSelect} />
-          <input
-            type="text"
-            value={selectedPatientId}
-            disabled
-            placeholder="Selected Patient ID"
-            className="w-full mt-4 p-2 border rounded-md"
-          />
+          {selectedPatientId ? (
+            <p className="mt-4 text-blue-600 font-medium">
+              Patient : {selectedPatientId} selected
+            </p>
+          ) : (
+            <p className="mt-4 text-gray-600">No patient selected</p>
+          )}
         </div>
       </div>
 
