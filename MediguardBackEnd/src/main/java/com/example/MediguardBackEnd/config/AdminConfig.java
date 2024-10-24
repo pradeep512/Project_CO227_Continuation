@@ -32,8 +32,8 @@ public class AdminConfig {
 
     @Transactional
     public void initAdminUser(){
-        String adminUsername = "admin";
-        String adminPassword = "Admin123";
+        String adminUsername = "Admin";
+        String adminPassword = "Admin@123";
 
         try {
             if(userRepository.findByUsername(adminUsername).isEmpty()){
