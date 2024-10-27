@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosClient from "../../../axios-client"; // Updated path for axiosClient
+import axiosClient from "../../../axios-client";
 import PatientOverviewChart from "../AdminComponents/PatientOverviewChart";
 import RevenueChart from "../AdminComponents/RevenueChart";
 

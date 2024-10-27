@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
-import axiosClient from "../../../../../axios-client"; // Adjust the path accordingly
+import PropTypes from "prop-types";
+import axiosClient from "../../../../../axios-client";
 
 const PatientClinicalDataUpdate = ({
   patientId,
@@ -8,8 +8,8 @@ const PatientClinicalDataUpdate = ({
   onClose,
   fetchData,
 }) => {
-  const [formData, setFormData] = useState(null); // Initialize as null
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [formData, setFormData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // Fetch existing data to pre-fill the form

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axiosClient from "../../../axios-client"; // Adjust the import path as needed
+import axiosClient from "../../../axios-client";
 import { useNavigate } from "react-router-dom";
 
 const CreateDoctorForm = () => {
@@ -15,7 +15,7 @@ const CreateDoctorForm = () => {
   });
 
   const [error, setError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null); // Specific state for password error
+  const [passwordError, setPasswordError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false); // Track if form is being submitted
   const [popupMessage, setPopupMessage] = useState(""); // Popup message content

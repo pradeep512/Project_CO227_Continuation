@@ -1,5 +1,3 @@
-// import Sidebar from "../components/AdminComponents/SideBar";
-// import TopBar from "../components/AdminComponents/TopBar";
 import FetchAllDoctors from "../components/AllDoctors";
 import FetchAllPatients from "../components/AllPatients";
 import DeleteDoctor from "../components/DeleteDoctor";
@@ -12,12 +10,8 @@ import PatientDataById from "../components/GetPatientById";
 import PatientSymptomDataById from "../components/GetPatientSymptomsById";
 import DoctorPatients from "../components/GetRegisteredPatientsForDoctor";
 import MachineLearningData from "../components/MachineLerningDataForm";
-
 import PatientClinicalDataById from "../components/PatientClinicalDataById";
-
 import RegisterPatientToDoctor from "../components/RegisterPatientsForDoctor";
-
-// import AdminHome from "./Admin/AdminPage";
 
 export default function Tests() {
   return (
@@ -39,3 +33,5 @@ export default function Tests() {
     </div>
   );
 }
+
+//This was used for testing the components UI

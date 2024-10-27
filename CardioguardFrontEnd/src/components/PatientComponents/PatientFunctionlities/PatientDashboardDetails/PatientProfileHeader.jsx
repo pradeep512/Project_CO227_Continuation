@@ -71,7 +71,10 @@ const PatientProfileHeader = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axiosClient.put(`/patients/${patientId}`, formData);
+      const response = await axiosClient.put(
+        `/patients/${patientId}`,
+        formData
+      );
       if (response.data) {
         setPatient(response.data);
         setShowEditForm(false); // Hide form after successful update
@@ -120,7 +123,8 @@ const PatientProfileHeader = () => {
                       Active
                     </span>
                     <p className="text-sm text-gray-500">
-                      Patient ID: <span className="font-bold">{patient.patientId}</span>
+                      Patient ID:{" "}
+                      <span className="font-bold">{patient.patientId}</span>
                     </p>
                   </div>
                 </div>
@@ -240,102 +244,3 @@ const PatientProfileHeader = () => {
 };
 
 export default PatientProfileHeader;
-
-
-
-// import { useState, useEffect } from "react";
-// import axiosClient from "../../../../../axios-client";
-// import useStateContext from "../../../../contexts/useStateContext";
-// import EditPatientForm from "./EditPatientForm";
-
-// const PatientProfileHeader = () => {
-//   const [patient, setPatient] = useState(null);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
-//   const [showEditForm, setShowEditForm] = useState(false);
-//   const { user } = useStateContext();
-
-//   const patientId = user.patientId;
-
-//   useEffect(() => {
-//     const fetchPatientDataById = async () => {
-//       try {
-//         setLoading(true);
-//         setError(null);
-//         setPatient(null);
-
-//         const patientResponse = await axiosClient.get(`/patients/${patientId}`);
-//         if (patientResponse.data) {
-//           setPatient(patientResponse.data);
-//         } else {
-//           setError("No patient data found.");
-//         }
-//       } catch (err) {
-//         setError(
-//           "Failed to fetch data. Please check the Patient ID and try again."
-//         );
-//         console.error("Error fetching data:", err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchPatientDataById();
-//   }, [patientId]);
-
-//   const handleEditClick = () => {
-//     setShowEditForm(true);
-//   };
-
-//   const handleSave = (updatedPatient) => {
-//     setPatient(updatedPatient);
-//     setShowEditForm(false);
-//   };
-
-//   return (
-//     <div className="flex items-center justify-between bg-white shadow-lg rounded-lg p-4">
-//       {loading ? (
-//         <div className="text-center text-gray-500">Loading...</div>
-//       ) : patient ? (
-//         <>
-//           <div className="flex items-center space-x-4">
-//             <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
-//               <svg className="w-8 h-8 text-blue-500" /* SVG Path here */ />
-//             </div>
-//             <div>
-//               <h2 className="text-lg font-bold text-gray-900">
-//                 {patient.firstName} {patient.lastName}
-//               </h2>
-//               <p className="text-sm text-gray-500">
-//                 Patient ID: <span className="font-bold">{patient.patientId}</span>
-//               </p>
-//             </div>
-//           </div>
-//           <div className="flex space-x-4">
-//             <button
-//               onClick={handleEditClick}
-//               className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
-//             >
-//               Edit Data
-//             </button>
-//           </div>
-
-//           {showEditForm && (
-//             <EditPatientForm
-//               patient={patient}
-//               onClose={() => setShowEditForm(false)}
-//               onSave={handleSave}
-//             />
-//           )}
-//         </>
-//       ) : (
-//         <div className="text-center text-gray-500">
-//           {error || "No patient data available."}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PatientProfileHeader;
-

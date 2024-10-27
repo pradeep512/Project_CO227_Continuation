@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const SendDeleteButton = () => {
-  const [data, setData] = useState({
+  const [data] = useState({
     key1: "value1",
     key2: "value2",
     // other key-value pairs

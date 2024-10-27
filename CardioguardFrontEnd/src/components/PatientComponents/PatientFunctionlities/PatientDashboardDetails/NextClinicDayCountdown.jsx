@@ -22,7 +22,7 @@ const NextClinicDayCountdown = ({ nextClinicDay }) => {
 
 // PropTypes validation
 NextClinicDayCountdown.propTypes = {
-  nextClinicDay: PropTypes.string.isRequired, // Adjust the type if needed
+  nextClinicDay: PropTypes.string.isRequired,
 };
 
 export default NextClinicDayCountdown;

@@ -18,24 +18,6 @@ export const ContextProvider = ({ children }) => {
 
   const [token, _setToken] = useState(Cookies.get("_auth"));
 
-  // const [user, _setUser] = useState({
-  //   role: "ADMIN",
-  //   user: 1,
-  // });
-  // const [token, _setToken] = useState("jadajdad");
-
-  // const [user, _setUser] = useState({
-  //   role: "DOCTOR",
-  //   user: 1,
-  // });
-  // const [token, _setToken] = useState("jadajdad");
-
-  // const [user, _setUser] = useState({
-  //   role: "USER",
-  //   user: 1,
-  // });
-  // const [token, _setToken] = useState("jadajdad");
-
   const setToken = (token) => {
     _setToken(token);
     if (token) {
@@ -71,3 +53,22 @@ export const ContextProvider = ({ children }) => {
 ContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+//These are used for testing
+// const [user, _setUser] = useState({
+//   role: "ADMIN",
+//   user: 1,
+// });
+// const [token, _setToken] = useState("jadajdad");
+
+// const [user, _setUser] = useState({
+//   role: "DOCTOR",
+//   user: 1,
+// });
+// const [token, _setToken] = useState("jadajdad");
+
+// const [user, _setUser] = useState({
+//   role: "USER",
+//   user: 1,
+// });
+// const [token, _setToken] = useState("jadajdad");

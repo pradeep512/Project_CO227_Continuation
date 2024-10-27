@@ -1,6 +1,6 @@
 import { useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
-import axiosClient from "../../../../../axios-client"; // Adjust the path to your axios-client
+import PropTypes from "prop-types";
+import axiosClient from "../../../../../axios-client";
 
 const SymptomsUpdate = ({ patientId, symptomsData, onClose, fetchData }) => {
   // Initialize state for form fields, defaulting to the symptomsData or fallback to false/null

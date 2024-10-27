@@ -14,7 +14,7 @@ import DoctorMainLayout from "../components/layouts/DoctorMainLayout";
 import ServicesPage from "../pages/ServicePgae";
 import PatientMainLayout from "../components/layouts/PatientMainLayout";
 import AdminDoctors from "../components/AdminComponents/AdminDoctors";
-import AdminPatientInfoChange from "../pages/Admin/AdminPatientInfoChange"; // Import the new component
+import AdminPatientInfoChange from "../pages/Admin/AdminPatientInfoChange";
 import DoctorDashboard from "../components/DoctorComponents/DoctorDashboard";
 import GetDoctorsPatients from "../components/DoctorComponents/DoctorFunctionlities/GetDoctorsPatients";
 import MedicalInfo from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/MedicalInfo";
@@ -26,7 +26,6 @@ import PatientMedicalInfo from "../components/PatientComponents/PatientFunctionl
 import Prediction from "../components/DoctorComponents/DoctorFunctionlities/DoctorsPatientDetails/Prediction";
 import ReadData from "../components/PatientComponents/PatientFunctionlities/ReadData";
 import TermsAndConditions from "../components/TermsAndConditions";
-
 
 const AppRoutes = createBrowserRouter([
   {
@@ -92,8 +91,6 @@ const AppRoutes = createBrowserRouter([
     ],
   },
 
-  
-
   { path: "/", element: <HomePage /> },
   { path: "/login", element: <LoginPage /> },
   { path: "/about", element: <AboutPage /> },
@@ -103,11 +100,11 @@ const AppRoutes = createBrowserRouter([
   { path: "/register-user", element: <RegisterUser /> },
   { path: "/services", element: <ServicesPage /> },
   { path: "/services/getadvice", element: <GetAdvice /> },
-  { path: "/services/meditate", element: <Meditate /> },  
-  { path: "/services/createdietplan", element: <CreateDietPlan/> },
-  { path: "/admin-dashboard", element: <AdminDashboard /> }, // Admin dashboard standalone route
-  { path: "/patient-dashboard", element: <PatientDashboard /> }, // Patient dashboard standalone route
-  { path: "/tests2", element: <Tests /> }, // Testing page route
+  { path: "/services/meditate", element: <Meditate /> },
+  { path: "/services/createdietplan", element: <CreateDietPlan /> },
+  { path: "/admin-dashboard", element: <AdminDashboard /> },
+  { path: "/patient-dashboard", element: <PatientDashboard /> },
+  { path: "/tests2", element: <Tests /> },
   { path: "/terms", element: <TermsAndConditions /> },
 ]);
 

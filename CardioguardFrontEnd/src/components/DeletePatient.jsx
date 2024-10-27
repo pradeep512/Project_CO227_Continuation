@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import axiosClient from "../../axios-client";
 
 const DeletePatient = () => {
-  const { patient_id } = useParams(); // Get patient_id from the URL
+  // const { patient_id } = useParams(); // Get patient_id from the URL
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);

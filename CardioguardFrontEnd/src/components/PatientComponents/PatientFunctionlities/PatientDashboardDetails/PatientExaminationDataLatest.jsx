@@ -194,7 +194,7 @@ const PatientExaminationDataById = ({ patientId }) => {
 };
 
 PatientExaminationDataById.propTypes = {
-  patientId: PropTypes.number.isRequired, // Validate that patientId is a required number
+  patientId: PropTypes.number.isRequired,
 };
 
 export default PatientExaminationDataById;

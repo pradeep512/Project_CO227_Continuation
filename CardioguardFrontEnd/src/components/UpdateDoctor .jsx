@@ -13,7 +13,7 @@ const UpdateDoctor = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [originalData, setOriginalData] = useState(null);
+  const [setOriginalData] = useState(null);
 
   // Fetch the current data of the doctor on component mount
   useEffect(() => {

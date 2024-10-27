@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axiosClient from "../../../../../axios-client";
 
 const EditPatientForm = ({ patient, onClose, onSave }) => {
@@ -41,7 +42,10 @@ const EditPatientForm = ({ patient, onClose, onSave }) => {
     setError(null);
 
     try {
-      const response = await axiosClient.put(`/api/patients/${patient.patientId}`, formData);
+      const response = await axiosClient.put(
+        `/api/patients/${patient.patientId}`,
+        formData
+      );
 
       if (response.data) {
         onSave(response.data); // Update parent component with the new data
@@ -154,6 +158,21 @@ const EditPatientForm = ({ patient, onClose, onSave }) => {
       </form>
     </div>
   );
+};
+
+// Define prop types for the component
+EditPatientForm.propTypes = {
+  patient: PropTypes.shape({
+    patientId: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    nic: PropTypes.string,
+    gender: PropTypes.string,
+    dateOfBirth: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
 };
 
 export default EditPatientForm;

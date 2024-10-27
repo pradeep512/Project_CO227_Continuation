@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import axiosClient from "../../../axios-client"; // Adjust the path as needed
+import PropTypes from "prop-types";
+import axiosClient from "../../../axios-client";
 
-const AdminUpdateDoctor = ({ doctorId, onComplete }) => { // Make sure onComplete is a prop
-  const [doctor, setDoctor] = useState(null);
+const AdminUpdateDoctor = ({ doctorId, onComplete }) => {
+  const [setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -70,7 +71,12 @@ const AdminUpdateDoctor = ({ doctorId, onComplete }) => { // Make sure onComplet
       <h2 className="text-xl font-bold mb-4">Update Doctor Details</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="nic" className="block text-sm font-medium text-gray-700">NIC</label>
+          <label
+            htmlFor="nic"
+            className="block text-sm font-medium text-gray-700"
+          >
+            NIC
+          </label>
           <input
             type="text"
             name="nic"
@@ -82,7 +88,12 @@ const AdminUpdateDoctor = ({ doctorId, onComplete }) => { // Make sure onComplet
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="surname" className="block text-sm font-medium text-gray-700">Surname</label>
+          <label
+            htmlFor="surname"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Surname
+          </label>
           <input
             type="text"
             name="surname"
@@ -94,7 +105,12 @@ const AdminUpdateDoctor = ({ doctorId, onComplete }) => { // Make sure onComplet
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+          <label
+            htmlFor="lastName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Last Name
+          </label>
           <input
             type="text"
             name="lastName"
@@ -115,6 +131,11 @@ const AdminUpdateDoctor = ({ doctorId, onComplete }) => { // Make sure onComplet
       </form>
     </div>
   );
+};
+
+AdminUpdateDoctor.propTypes = {
+  doctorId: PropTypes.string.isRequired,
+  onComplete: PropTypes.func,
 };
 
 export default AdminUpdateDoctor;

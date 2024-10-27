@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const getRandomGrey = () => {
   const greys = ["#d3d3d3", "#a9a9a9", "#808080", "#696969", "#505050"];
@@ -9,7 +9,7 @@ const getRandomGrey = () => {
 
 const TopBar = ({ patientName, handleLogout }) => {
   const [avatarColor, setAvatarColor] = useState("#d3d3d3");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     setAvatarColor(getRandomGrey());
@@ -65,7 +65,7 @@ const TopBar = ({ patientName, handleLogout }) => {
 // Define PropTypes
 TopBar.propTypes = {
   patientName: PropTypes.string,
-  handleLogout: PropTypes.func.isRequired, // Add PropTypes for handleLogout
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default TopBar;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axiosClient from "../../../../../axios-client";
 import { useParams } from "react-router-dom";
-import Modal from "./Modal"; // Adjust the path to your modal component
-import SymptomsUpdate from "./SymptomsUpdate"; // Import the update component
-import PatientSymptomsSubmission from "./PatientSymptomsSubmission"; // Import the add record component
+import Modal from "./Modal";
+import SymptomsUpdate from "./SymptomsUpdate";
+import PatientSymptomsSubmission from "./PatientSymptomsSubmission";
 
 const SymptomDataById = () => {
   const { patientId } = useParams();
@@ -11,8 +11,8 @@ const SymptomDataById = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expandedRows, setExpandedRows] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
-  const [editIndex, setEditIndex] = useState(null); // Track the index of the row being edited
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
 
   // Fetch symptom data
   const fetchSymptomData = useCallback(async () => {

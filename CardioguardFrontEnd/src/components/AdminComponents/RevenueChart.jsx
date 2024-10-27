@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import axiosClient from "../../../axios-client"; // Adjust the import path as needed
-import Chart from "chart.js/auto"; // Ensure you are importing chart.js/auto properly
 
 const GenderDistributionChart = () => {
   const chartRef = useRef(null); // Create a ref to hold the chart instance
@@ -18,7 +17,7 @@ const GenderDistributionChart = () => {
         let maleCount = 0;
         let femaleCount = 0;
 
-        patients.forEach(patient => {
+        patients.forEach((patient) => {
           if (patient.gender.toLowerCase() === "male") {
             maleCount++;
           } else if (patient.gender.toLowerCase() === "female") {
@@ -52,7 +51,11 @@ const GenderDistributionChart = () => {
     };
   }, []);
 
-  return chartData ? <Pie ref={chartRef} data={chartData} /> : <p>Loading...</p>;
+  return chartData ? (
+    <Pie ref={chartRef} data={chartData} />
+  ) : (
+    <p>Loading...</p>
+  );
 };
 
 export default GenderDistributionChart;

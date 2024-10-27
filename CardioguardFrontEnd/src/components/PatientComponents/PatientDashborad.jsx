@@ -12,7 +12,6 @@ const PatientDashboard = () => {
   const { user } = useStateContext();
   const patientId = user.patientId;
 
-  // Example date for the next clinic day
   return (
     <div className="flex flex-col items-center justify-center">
       <span className="text-3xl text-center font-bold text-blue-500 mb-4">

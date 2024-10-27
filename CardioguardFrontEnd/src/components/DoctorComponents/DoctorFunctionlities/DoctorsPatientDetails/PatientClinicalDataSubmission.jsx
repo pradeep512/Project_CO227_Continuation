@@ -15,7 +15,7 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
     serumSodium: "",
     smoking: false,
     followUpPeriodDays: "",
-    clinicalDate: "", // Added clinicalDate field
+    clinicalDate: "",
   });
 
   const handleChange = (event) => {
@@ -31,7 +31,6 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
     console.log("Patient details submitted:", formData);
 
     try {
-      // Format the formData object to match the expected structure
       const formattedData = {
         ...formData,
         creatininePhosphokinase: Number(formData.creatininePhosphokinase),
@@ -41,7 +40,7 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
         serumCreatinine: Number(formData.serumCreatinine),
         serumSodium: Number(formData.serumSodium),
         followUpPeriodDays: Number(formData.followUpPeriodDays),
-        clinicalDate: new Date(formData.clinicalDate).toISOString(), // Ensure proper date formatting
+        clinicalDate: new Date(formData.clinicalDate).toISOString(),
       };
 
       await axiosClient.post(
@@ -50,7 +49,6 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
       );
       console.log("Submission successful, navigating to the previous page.");
       onClose(); // Close the modal
-      //navigate(-1); // Navigate to the previous page
     } catch (error) {
       console.error("There was an error with the submission:", error);
     }
@@ -244,10 +242,9 @@ const PatientClinicalDataSubmission = ({ patientId, onClose }) => {
   );
 };
 
-// Define PropTypes for the component
 PatientClinicalDataSubmission.propTypes = {
-  patientId: PropTypes.string.isRequired, // patientId is required and should be a string
-  onClose: PropTypes.func.isRequired, // onClose is required and should be a function
+  patientId: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default PatientClinicalDataSubmission;

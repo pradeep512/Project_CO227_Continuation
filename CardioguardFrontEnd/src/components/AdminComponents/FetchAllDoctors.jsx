@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axiosClient from "../../../axios-client"; // Updated path for axiosClient
-import CreateDoctorForm from "../AdminComponents/AddingDoctor"; // Adjust the import path as needed
-import AdminUpdateDoctor from "../AdminComponents/AdminUpdateDoctor"; // Import the AdminUpdateDoctor component
+import axiosClient from "../../../axios-client";
+import CreateDoctorForm from "../AdminComponents/AddingDoctor";
+import AdminUpdateDoctor from "../AdminComponents/AdminUpdateDoctor";
 import RegisterPatientToDoctor from "../RegisterPatientsForDoctor";
 
 const FetchAllDoctors = () => {
